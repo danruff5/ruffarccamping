@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Image Processor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl font-bold mb-4">Local AI Image Processor</h1>
+        
+        <div class="mb-4">
+            <h2 class="text-xl">1. Queue Images</h2>
+            <input type="text" id="img-path" placeholder="C:/images/pic1.jpg" class="border p-2 w-full mb-2">
+            <button onclick="addImages()" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Queue</button>
+        </div>
+        
+        <div class="mb-4">
+            <h2 class="text-xl">2. Process Queue</h2>
+            <input type="text" id="prompt" placeholder="Describe the image and rate its quality 1-10" class="border p-2 w-full mb-2">
+            <button onclick="startProcessing()" class="bg-green-500 text-white px-4 py-2 rounded">Start AI Processing</button>
+        </div>
+
+        <div>
+            <h2 class="text-xl">3. Results</h2>
+            <button onclick="fetchStatus()" class="bg-gray-500 text-white px-4 py-2 rounded mb-2">Refresh Status</button>
+            <div id="results" class="space-y-2 mt-4"></div>
+        </div>
+    </div>
+
+    <script>
+        async function addImages() {
+            const path = document.getElementById('img-path').value;
+            await fetch('/api/images', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({paths: [path]})
+            });
+            alert('Added!');
+            fetchStatus();
+        }
+
+        async function startProcessing() {
+            const prompt = document.getElementById('prompt').value;
+            await fetch('/api/process', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({prompt: prompt})
+            });
+            alert('Started background processing!');
+        }
+
+        async function fetchStatus() {
+            const res = await fetch('/api/status');
+            const data = await res.json();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = data.images.map(img => `
+                <div class="border p-2 rounded">
+                    <strong>${img.path}</strong> - <span class="text-blue-600">${img.status}</span>
+                    <p class="text-sm mt-1 text-gray-600">${img.description || ''}</p>
+                </div>
+            `).join('');
+        }
+        
+        // Auto-refresh every 5 seconds
+        setInterval(fetchStatus, 5000);
+        fetchStatus();
+    </script>
+</body>
+</html>
