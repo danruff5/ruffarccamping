@@ -33,7 +33,11 @@
 
 <div class="photo-grid">
     {% for photo in photos %}
-    <div class="photo-item" onclick='openModal("../{{ photo.full_res }}", {{ photo.description|tojson }}, "{{ photo.rating }}", "{{ photo.score }}")'>
+    <div class="photo-item"
+         data-full="../{{ photo.full_res }}"
+         data-desc={{ photo.description|tojson }}
+         data-rating={{ photo.rating|tojson }}
+         data-score="{{ photo.score }}">
         <img src="../{{ photo.thumb }}" alt="Photo">
     </div>
     {% endfor %}
