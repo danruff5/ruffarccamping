@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Explorer - AI Vision Processor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2 { font-family: 'Outfit', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .table-row-hover:hover { background-color: rgba(248, 250, 252, 1); }
+        td { vertical-align: top; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-900">
+
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <div class="flex items-center gap-2 text-blue-600 mb-1">
+                    <a href="/" class="text-sm font-semibold hover:underline">← Back to Dashboard</a>
+                </div>
+                <h1 class="text-3xl font-extrabold text-slate-800">Database Explorer</h1>
+                <p class="text-slate-500">Full audit log of all processed and pending images</p>
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="exportToCSV()" class="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-50 transition shadow-sm">
+                    Export to CSV
+                </button>
+            </div>
+        </header>
+
+        <!-- Filters Bar -->
+        <div class="glass rounded-2xl p-6 mb-8 shadow-xl flex flex-wrap gap-6 items-end">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Folder Location</label>
+                <select id="filter-folder" onchange="applyFilters()" class="w-full bg-slate-100 border-none rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
+                    <option value="">All Folders</option>
+                </select>
+            </div>
+            <div class="w-48">
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Status</label>
+                <select id="filter-status" onchange="applyFilters()" class="w-full bg-slate-100 border-none rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
+                    <option value="">Any Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Done">Done</option>
+                    <option value="Failed">Failed</option>
+                </select>
+            </div>
+            <div class="w-36">
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Min Score</label>
+                <input type="number" id="filter-min-score" placeholder="1–10" min="1" max="10" oninput="applyFilters()" class="w-full bg-slate-100 border-none rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+                <span id="results-count" class="text-sm font-semibold text-slate-400 italic">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-50 border-b border-slate-100">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Path</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Score</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Description</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Critique</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Raw Response</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Rows injected here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="bg-slate-50 px-6 py-4 flex items-center justify-between border-t border-slate-100">
+                <div class="text-slate-500 text-sm">
+                    Page <span id="page-current" class="font-bold text-slate-800">1</span> of <span id="page-total" class="font-bold text-slate-800">1</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="changePage(-1)" class="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-50" id="prev-btn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button onclick="changePage(1)" class="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-50" id="next-btn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const perPage = 100;
+
+        async function loadFolders() {
+            const res = await fetch('/api/folders');
+            const data = await res.json();
+            const select = document.getElementById('filter-folder');
+            data.folders.forEach(f => {
+                const opt = document.createElement('option');
+                opt.value = f;
+                opt.textContent = f;
+                select.appendChild(opt);
+            });
+        }
+
+        async function applyFilters() {
+            currentPage = 1;
+            fetchData();
+        }
+
+        async function changePage(delta) {
+            currentPage += delta;
+            fetchData();
+        }
+
+        async function fetchData() {
+            const status = document.getElementById('filter-status').value;
+            const folder = document.getElementById('filter-folder').value;
+            const minScore = document.getElementById('filter-min-score').value;
+
+            const params = new URLSearchParams({
+                page: currentPage,
+                per_page: perPage
+            });
+            if (status) params.append('status_filter', status);
+            if (folder) params.append('folder_filter', folder);
+
+            const res = await fetch(`/api/status?${params.toString()}`);
+            const data = await res.json();
+
+            document.getElementById('page-current').textContent = data.page;
+            document.getElementById('page-total').textContent = data.pages;
+            document.getElementById('results-count').textContent = `${data.total.toLocaleString()} total items`;
+            document.getElementById('prev-btn').disabled = data.page <= 1;
+            document.getElementById('next-btn').disabled = data.page >= data.pages;
+
+            const tbody = document.getElementById('data-body');
+            tbody.innerHTML = '';
+
+            const minScoreVal = parseInt(document.getElementById('filter-min-score').value) || 0;
+            const filteredImages = minScoreVal > 0 ? data.images.filter(i => (i.score || 0) >= minScoreVal) : data.images;
+
+            filteredImages.forEach(img => {
+                const row = document.createElement('tr');
+                row.className = 'table-row-hover transition';
+                
+                const statusColor = {
+                    'Done': 'text-green-600 bg-green-50',
+                    'Failed': 'text-red-600 bg-red-50',
+                    'Processing': 'text-blue-600 bg-blue-50',
+                    'Pending': 'text-slate-400 bg-slate-50'
+                }[img.status] || 'text-slate-400';
+
+                const score = img.score;
+                const scoreColor = score >= 8 ? 'bg-green-100 text-green-700'
+                    : score >= 5 ? 'bg-amber-100 text-amber-700'
+                    : score ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-400';
+                const scoreLabel = score ? `${score}/10` : '—';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-xs font-mono text-slate-400">#${img.id}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 rounded-md text-[10px] font-bold uppercase ${statusColor}">${img.status}</span>
+                    </td>
+                    <td class="px-6 py-4 font-medium text-slate-700 truncate max-w-xs" title="${img.path}">${img.path.split('\\').pop()}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${scoreColor}">${scoreLabel}</span>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600 text-xs leading-relaxed max-w-xs">
+                        <span class="line-clamp-3 block" title="${img.description || ''}">${img.description || '—'}</span>
+                    </td>
+                    <td class="px-6 py-4 text-slate-500 text-[10px] leading-snug max-w-sm">
+                        <span class="line-clamp-4 block" title="${img.rating || ''}">${(img.rating || '—').replace(/\n/g, '<br>')}</span>
+                    </td>
+                    <td class="px-6 py-4 text-slate-400 text-[10px] leading-snug max-w-xs">
+                        <span class="line-clamp-2 block font-mono" title="${img.raw_response || ''}">${img.raw_response ? img.raw_response.slice(-200) : '—'}</span>
+                    </td>
+                    <td class="px-6 py-4 text-[10px] text-slate-400 font-mono whitespace-nowrap">${img.timestamp || '—'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function exportToCSV() {
+            // Simple placeholder for CSV export logic
+            alert("Exporting current view to CSV...");
+        }
+
+        // Init
+        loadFolders();
+        fetchData();
+    </script>
+</body>
+</html>
