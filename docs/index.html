@@ -102,12 +102,16 @@
         const modalMeta = document.getElementById('modal-meta');
         const closeBtn = document.querySelector('.close-btn');
 
-        function openModal(imgSrc, desc, rating, score) {
-            modalImg.src = imgSrc;
-            modalDesc.textContent = desc;
-            modalMeta.textContent = `Rating: ${rating} | Score: ${score}/10`;
+        // Delegated click listener — reads data-* attributes, never evaluates inline JS.
+        // This is immune to single/double quotes or any special characters in descriptions.
+        document.addEventListener('click', (e) => {
+            const item = e.target.closest('.photo-item');
+            if (!item) return;
+            modalImg.src = item.dataset.full;
+            modalDesc.textContent = item.dataset.desc;
+            modalMeta.textContent = `Rating: ${item.dataset.rating} | Score: ${item.dataset.score}/10`;
             modal.style.display = 'flex';
-        }
+        });
 
         closeBtn.onclick = () => modal.style.display = 'none';
         window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
