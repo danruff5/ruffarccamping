@@ -48,8 +48,34 @@ def get_cover_photo(album_path, approved_images):
     return None
 
 def process_image(src_path, dest_dir, album_slug, filename):
-    # Placeholder for Task 4
-    pass
+    """
+    Optimizes images for the web. Creates a WebP thumbnail and copies the full-res original.
+    Returns relative paths (to docs root) for (thumbnail, full_res).
+    """
+    # Create directories
+    thumb_dir = os.path.join(dest_dir, "thumbnails")
+    full_dir = os.path.join(dest_dir, "full")
+    os.makedirs(thumb_dir, exist_ok=True)
+    os.makedirs(full_dir, exist_ok=True)
+    
+    # Paths relative to docs root
+    rel_base = os.path.join("assets", album_slug)
+    rel_thumb = os.path.join(rel_base, "thumbnails", os.path.splitext(filename)[0] + ".webp")
+    rel_full = os.path.join(rel_base, "full", filename)
+    
+    # Absolute paths for processing
+    abs_thumb = os.path.join(thumb_dir, os.path.splitext(filename)[0] + ".webp")
+    abs_full = os.path.join(full_dir, filename)
+    
+    # 1. Create Thumbnail
+    with Image.open(src_path) as img:
+        img.thumbnail((800, 800))
+        img.save(abs_thumb, "WEBP", quality=80)
+        
+    # 2. Copy Full-Res
+    shutil.copy2(src_path, abs_full)
+    
+    return rel_thumb, rel_full
 
 def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
     # Placeholder for Task 5

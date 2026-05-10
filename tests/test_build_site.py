@@ -41,5 +41,21 @@ def test_get_cover_photo(tmp_path):
     assert get_cover_photo(str(album_path), approved_images) == str(cover_file)
 
 def test_process_image(tmp_path):
-    # This will be used in Task 4, but I'll add the placeholder for import check
-    pass
+    from build_site import process_image
+    from PIL import Image
+    import os
+    
+    # Create a dummy image
+    src_img = tmp_path / "test.jpg"
+    img = Image.new('RGB', (1000, 1000), color = 'red')
+    img.save(src_img)
+    
+    dest_dir = tmp_path / "docs" / "assets" / "trip1"
+    
+    # process_image should return (thumbnail_path, full_res_path) relative to docs/
+    thumb, full = process_image(str(src_img), str(dest_dir), "trip1", "test.jpg")
+    
+    assert os.path.exists(tmp_path / "docs" / thumb)
+    assert os.path.exists(tmp_path / "docs" / full)
+    assert thumb.endswith(".webp")
+    assert "thumbnails" in thumb
