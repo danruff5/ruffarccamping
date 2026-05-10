@@ -2,7 +2,7 @@ import os
 import sqlite3
 import shutil
 from difflib import SequenceMatcher
-from PIL import Image
+from PIL import Image, ImageOps
 from jinja2 import Environment, FileSystemLoader
 
 def filter_and_group_images(images, similarity_threshold=0.85):
@@ -79,11 +79,13 @@ def process_image(src_path, dest_dir, album_slug, filename):
 
     # 1. Create Thumbnail (max 800px, quality 80)
     with Image.open(src_path) as img:
+        img = ImageOps.exif_transpose(img)  # Fix EXIF rotation (phone/camera photos)
         img.thumbnail((800, 800))
         img.save(abs_thumb, "WEBP", quality=80)
         
     # 2. Create optimized full-size (max 2048px, quality 90)
     with Image.open(src_path) as img:
+        img = ImageOps.exif_transpose(img)  # Fix EXIF rotation (phone/camera photos)
         img.thumbnail((2048, 2048))
         img.save(abs_full, "WEBP", quality=90)
     
