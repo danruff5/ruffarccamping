@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="grid">
+    {% for album in albums %}
+    <a href="albums/{{ album.slug }}.html" class="card">
+        <img src="{{ album.cover_thumb }}" alt="{{ album.name }}">
+        <div class="card-content">
+            <h2 class="card-title">{{ album.name }}</h2>
+            <p class="card-meta">{{ album.photo_count }} Photos</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

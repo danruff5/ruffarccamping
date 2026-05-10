@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ album_name }} - Camping Photo Gallery{% endblock %}
+
+{% block extra_css %}
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+.photo-item {
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem;">
+    <a href="../index.html" style="color: var(--accent-color); text-decoration: none;">&larr; Back to Albums</a>
+    <h2 style="margin-top: 1rem; font-size: 2rem;">{{ album_name }}</h2>
+</div>
+
+<div class="photo-grid">
+    {% for photo in photos %}
+    <div class="photo-item" onclick='openModal("../{{ photo.full_res }}", {{ photo.description|tojson }}, "{{ photo.rating }}", "{{ photo.score }}")'>
+        <img src="../{{ photo.thumb }}" alt="Photo">
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
