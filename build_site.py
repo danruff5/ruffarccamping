@@ -115,7 +115,7 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
     albums_data = filter_and_group_images(rows)
     
     # 4. Process Images and Render Album Pages
-    env = Environment(loader=FileSystemLoader(templates_dir))
+    env = Environment(loader=FileSystemLoader(templates_dir), autoescape=True)
     album_template = env.get_template("album.html")
     index_template = env.get_template("index.html")
     

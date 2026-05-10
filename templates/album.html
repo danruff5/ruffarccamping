@@ -35,8 +35,8 @@
     {% for photo in photos %}
     <div class="photo-item"
          data-full="../{{ photo.full_res }}"
-         data-desc={{ photo.description|tojson }}
-         data-rating={{ photo.rating|tojson }}
+         data-desc="{{ photo.description }}"
+         data-rating="{{ photo.rating }}"
          data-score="{{ photo.score }}">
         <img src="../{{ photo.thumb }}" alt="Photo">
     </div>
