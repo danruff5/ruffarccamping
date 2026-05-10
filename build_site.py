@@ -49,7 +49,8 @@ def get_cover_photo(album_path, approved_images):
 
 def process_image(src_path, dest_dir, album_slug, filename):
     """
-    Optimizes images for the web. Creates a WebP thumbnail and copies the full-res original.
+    Optimizes images for the web. Creates a WebP thumbnail (800px) and an
+    optimized full-size WebP (2048px) for the lightbox view.
     Returns relative paths (to docs root) for (thumbnail, full_res).
     """
     # Create directories
@@ -58,22 +59,27 @@ def process_image(src_path, dest_dir, album_slug, filename):
     os.makedirs(thumb_dir, exist_ok=True)
     os.makedirs(full_dir, exist_ok=True)
     
+    # Both outputs are WebP
+    base_name = os.path.splitext(filename)[0] + ".webp"
+    
     # Paths relative to docs root
     rel_base = os.path.join("assets", album_slug)
-    rel_thumb = os.path.join(rel_base, "thumbnails", os.path.splitext(filename)[0] + ".webp")
-    rel_full = os.path.join(rel_base, "full", filename)
+    rel_thumb = os.path.join(rel_base, "thumbnails", base_name)
+    rel_full = os.path.join(rel_base, "full", base_name)
     
     # Absolute paths for processing
-    abs_thumb = os.path.join(thumb_dir, os.path.splitext(filename)[0] + ".webp")
-    abs_full = os.path.join(full_dir, filename)
+    abs_thumb = os.path.join(thumb_dir, base_name)
+    abs_full = os.path.join(full_dir, base_name)
     
-    # 1. Create Thumbnail
+    # 1. Create Thumbnail (max 800px, quality 80)
     with Image.open(src_path) as img:
         img.thumbnail((800, 800))
         img.save(abs_thumb, "WEBP", quality=80)
         
-    # 2. Copy Full-Res
-    shutil.copy2(src_path, abs_full)
+    # 2. Create optimized full-size (max 2048px, quality 90)
+    with Image.open(src_path) as img:
+        img.thumbnail((2048, 2048))
+        img.save(abs_full, "WEBP", quality=90)
     
     return rel_thumb, rel_full
 
@@ -86,9 +92,18 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
         return
 
     # 1. Setup Directories
-    if os.path.exists(out_dir):
-        shutil.rmtree(out_dir)
-    os.makedirs(out_dir)
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+    
+    # Clean up only generated content, preserving 'plans'
+    for item in ["albums", "assets", "index.html"]:
+        path = os.path.join(out_dir, item)
+        if os.path.exists(path):
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            else:
+                os.remove(path)
+                
     os.makedirs(os.path.join(out_dir, "albums"))
     
     # 2. Fetch Data from DB

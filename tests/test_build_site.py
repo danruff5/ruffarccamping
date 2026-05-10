@@ -58,7 +58,9 @@ def test_process_image(tmp_path):
     assert os.path.exists(tmp_path / "docs" / thumb)
     assert os.path.exists(tmp_path / "docs" / full)
     assert thumb.endswith(".webp")
+    assert full.endswith(".webp")
     assert "thumbnails" in thumb
+    assert "full" in full
 
 def test_generate_html(tmp_path):
     from build_site import generate_site
