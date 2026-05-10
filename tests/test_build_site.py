@@ -59,3 +59,30 @@ def test_process_image(tmp_path):
     assert os.path.exists(tmp_path / "docs" / full)
     assert thumb.endswith(".webp")
     assert "thumbnails" in thumb
+
+def test_generate_html(tmp_path):
+    from build_site import generate_site
+    import os
+    import sqlite3
+    
+    # Create mock db
+    db_path = tmp_path / "test.db"
+    conn = sqlite3.connect(db_path)
+    conn.execute("CREATE TABLE images (id INTEGER PRIMARY KEY, path TEXT, status TEXT, description TEXT, rating TEXT, score INTEGER, timestamp DATETIME)")
+    # Create mock source image
+    img_dir = tmp_path / "trip1"
+    os.makedirs(img_dir, exist_ok=True)
+    img_path = img_dir / "img1.jpg"
+    from PIL import Image
+    Image.new('RGB', (10, 10)).save(img_path)
+    
+    conn.execute("INSERT INTO images (path, status, description, rating, score, timestamp) VALUES (?, ?, ?, ?, ?, ?)", 
+                 (str(img_path), "Done", "Sunset", "Good", 8, "2026-05-10 10:00:00"))
+    conn.commit()
+    conn.close()
+    
+    # generate_site takes an output directory
+    generate_site(db_path=str(db_path), out_dir=str(tmp_path / "docs"), templates_dir="templates")
+    
+    assert os.path.exists(tmp_path / "docs" / "index.html")
+    assert os.path.exists(tmp_path / "docs" / "albums" / "trip1.html")

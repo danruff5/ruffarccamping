@@ -78,9 +78,86 @@ def process_image(src_path, dest_dir, album_slug, filename):
     return rel_thumb, rel_full
 
 def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
-    # Placeholder for Task 5
-    pass
+    """
+    Main flow to generate the static site.
+    """
+    if not os.path.exists(db_path) and db_path != ":memory:":
+        print(f"Error: Database not found at {db_path}")
+        return
+
+    # 1. Setup Directories
+    if os.path.exists(out_dir):
+        shutil.rmtree(out_dir)
+    os.makedirs(out_dir)
+    os.makedirs(os.path.join(out_dir, "albums"))
+    
+    # 2. Fetch Data from DB
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM images WHERE status='Done' AND score >= 7 ORDER BY timestamp ASC")
+    rows = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    # 3. Filter and Group
+    albums_data = filter_and_group_images(rows)
+    
+    # 4. Process Images and Render Album Pages
+    env = Environment(loader=FileSystemLoader(templates_dir))
+    album_template = env.get_template("album.html")
+    index_template = env.get_template("index.html")
+    
+    albums_summary = []
+    
+    for name, photos in albums_data.items():
+        slug = name.lower().replace(" ", "_")
+        album_dir = os.path.join(out_dir, "assets", slug)
+        
+        processed_photos = []
+        for photo in photos:
+            filename = os.path.basename(photo["path"])
+            thumb, full = process_image(photo["path"], album_dir, slug, filename)
+            processed_photos.append({
+                "thumb": thumb,
+                "full_res": full,
+                "description": photo["description"],
+                "rating": photo["rating"],
+                "score": photo["score"]
+            })
+            
+        # Determine Cover Photo
+        album_src_path = os.path.dirname(photos[0]["path"])
+        raw_cover_path = get_cover_photo(album_src_path, photos)
+        
+        # Process cover as a dedicated thumbnail if it's not already processed
+        cover_filename = "album_cover_" + os.path.basename(raw_cover_path)
+        cover_thumb, _ = process_image(raw_cover_path, album_dir, slug, cover_filename)
+        
+        # Render Album HTML
+        album_html = album_template.render(
+            album_name=name,
+            photos=processed_photos,
+            root_path="../"
+        )
+        with open(os.path.join(out_dir, "albums", f"{slug}.html"), "w", encoding="utf-8") as f:
+            f.write(album_html)
+            
+        albums_summary.append({
+            "name": name,
+            "slug": slug,
+            "photo_count": len(processed_photos),
+            "cover_thumb": cover_thumb
+        })
+        
+    # 5. Render Index Page
+    index_html = index_template.render(
+        albums=albums_summary,
+        root_path=""
+    )
+    with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(index_html)
+        
+    print(f"Site generated successfully in {out_dir}/")
 
 if __name__ == "__main__":
-    # Placeholder for Task 5
-    pass
+    generate_site()
