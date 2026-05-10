@@ -20,7 +20,7 @@ The goal is to generate a static website (hosted on GitHub Pages) to showcase th
 
 ## 4. Frontend & UI Design
 - **Aesthetics:** Clean, modern, responsive dark-mode layout utilizing CSS grid.
-- **Index Page (`docs/index.html`):** Displays a grid of album cards. Each card shows the album name (folder name), a cover photo (the first approved image in that album), and the total number of photos.
+- **Index Page (`docs/index.html`):** Displays a grid of album cards. Each card shows the album name (folder name), a cover photo (the script will prioritize an image named `cover.jpg`, `cover.png`, or `cover.webp` in the album's folder; if none exists, it falls back to the first approved image), and the total number of photos.
 - **Album Page (`docs/albums/<album_name>.html`):** 
   - Displays a grid layout of all approved WebP thumbnails for that album, ordered by timestamp.
   - **Interactive Modal:** Clicking any thumbnail opens a full-screen Lightbox overlay. The overlay displays the full-resolution image and its metadata (AI-generated Description, Rating, and Score).

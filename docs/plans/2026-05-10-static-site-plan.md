@@ -100,6 +100,7 @@ Expected: FAIL (ImportError for `filter_and_group_images`)
 **Step 3: Write minimal implementation**
 
 Implement `filter_and_group_images` in `build_site.py` using `difflib.SequenceMatcher`.
+Also implement logic to determine the album cover: look for an image named `cover.jpg`, `cover.png`, or `cover.webp` in the album's source directory. If found, use it as the cover; otherwise, fall back to the first approved image in the album.
 
 **Step 4: Run test to verify it passes**
 
