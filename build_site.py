@@ -51,6 +51,7 @@ def process_image(src_path, dest_dir, album_slug, filename):
     """
     Optimizes images for the web. Creates a WebP thumbnail (800px) and an
     optimized full-size WebP (2048px) for the lightbox view.
+    Skips processing if both output files already exist (incremental build).
     Returns relative paths (to docs root) for (thumbnail, full_res).
     """
     # Create directories
@@ -71,6 +72,10 @@ def process_image(src_path, dest_dir, album_slug, filename):
     abs_thumb = os.path.join(thumb_dir, base_name)
     abs_full = os.path.join(full_dir, base_name)
     
+    # Skip if already processed (incremental build)
+    if os.path.exists(abs_thumb) and os.path.exists(abs_full):
+        return rel_thumb, rel_full
+
     # 1. Create Thumbnail (max 800px, quality 80)
     with Image.open(src_path) as img:
         img.thumbnail((800, 800))
@@ -91,20 +96,9 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
         print(f"Error: Database not found at {db_path}")
         return
 
-    # 1. Setup Directories
-    if not os.path.exists(out_dir):
-        os.makedirs(out_dir)
-    
-    # Clean up only generated content, preserving 'plans'
-    for item in ["albums", "assets", "index.html"]:
-        path = os.path.join(out_dir, item)
-        if os.path.exists(path):
-            if os.path.isdir(path):
-                shutil.rmtree(path)
-            else:
-                os.remove(path)
-                
-    os.makedirs(os.path.join(out_dir, "albums"))
+    # 1. Setup Directories — preserve existing albums/assets for incremental builds
+    os.makedirs(os.path.join(out_dir, "albums"), exist_ok=True)
+    os.makedirs(os.path.join(out_dir, "assets"), exist_ok=True)
     
     # 2. Fetch Data from DB
     conn = sqlite3.connect(db_path)
@@ -127,7 +121,19 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
     for name, photos in albums_data.items():
         slug = name.lower().replace(" ", "_")
         album_dir = os.path.join(out_dir, "assets", slug)
-        
+        album_html_path = os.path.join(out_dir, "albums", f"{slug}.html")
+
+        # Check if this album needs rebuilding:
+        # An album is stale if its HTML doesn't exist, or any source photo is
+        # newer than the existing HTML file.
+        album_html_mtime = os.path.getmtime(album_html_path) if os.path.exists(album_html_path) else 0
+        album_is_stale = not os.path.exists(album_html_path) or any(
+            os.path.getmtime(p["path"]) > album_html_mtime
+            for p in photos
+            if os.path.exists(p["path"])
+        )
+
+        # Always process images incrementally (skips already-done ones)
         processed_photos = []
         for photo in photos:
             filename = os.path.basename(photo["path"])
@@ -144,18 +150,22 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
         album_src_path = os.path.dirname(photos[0]["path"])
         raw_cover_path = get_cover_photo(album_src_path, photos)
         
-        # Process cover as a dedicated thumbnail if it's not already processed
+        # Process cover thumbnail (skipped if already exists)
         cover_filename = "album_cover_" + os.path.basename(raw_cover_path)
         cover_thumb, _ = process_image(raw_cover_path, album_dir, slug, cover_filename)
         
-        # Render Album HTML
-        album_html = album_template.render(
-            album_name=name,
-            photos=processed_photos,
-            root_path="../"
-        )
-        with open(os.path.join(out_dir, "albums", f"{slug}.html"), "w", encoding="utf-8") as f:
-            f.write(album_html)
+        # Only re-render HTML if album is stale
+        if album_is_stale:
+            album_html = album_template.render(
+                album_name=name,
+                photos=processed_photos,
+                root_path="../"
+            )
+            with open(album_html_path, "w", encoding="utf-8") as f:
+                f.write(album_html)
+            print(f"  [rebuilt] {name}")
+        else:
+            print(f"  [skipped] {name} (no changes)")
             
         albums_summary.append({
             "name": name,
