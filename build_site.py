@@ -63,10 +63,11 @@ def process_image(src_path, dest_dir, album_slug, filename):
     # Both outputs are WebP
     base_name = os.path.splitext(filename)[0] + ".webp"
     
-    # Paths relative to docs root
-    rel_base = os.path.join("assets", album_slug)
-    rel_thumb = os.path.join(rel_base, "thumbnails", base_name)
-    rel_full = os.path.join(rel_base, "full", base_name)
+    # Paths relative to docs root — MUST use forward slashes for URLs in HTML/JS
+    # os.path.join on Windows produces backslashes, which JS interprets as escape
+    # sequences (\n, \f, etc.) causing corrupted URLs.
+    rel_thumb = f"assets/{album_slug}/thumbnails/{base_name}"
+    rel_full = f"assets/{album_slug}/full/{base_name}"
     
     # Absolute paths for processing
     abs_thumb = os.path.join(thumb_dir, base_name)
