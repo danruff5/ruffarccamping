@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canoe Lake - Camping Photo Gallery</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+        }
+        h1 { margin: 0; font-weight: 800; letter-spacing: -0.025em; }
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card:hover { transform: translateY(-4px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .card-content { padding: 1.5rem; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 0.5rem 0; }
+        .card-meta { font-size: 0.875rem; color: #94a3b8; }
+        
+        /* Modal Styles */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #modal img { max-width: 90%; max-height: 80%; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        #modal-info { margin-top: 1.5rem; text-align: center; max-width: 800px; padding: 0 2rem; }
+        #modal-desc { font-size: 1.125rem; line-height: 1.6; margin-bottom: 1rem; }
+        #modal-meta { color: var(--accent-color); font-weight: 600; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: white; }
+
+        
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+.photo-item {
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Camping Photo Gallery</a></h1>
+    </header>
+    <main>
+        
+<div style="margin-bottom: 2rem;">
+    <a href="../index.html" style="color: var(--accent-color); text-decoration: none;">&larr; Back to Albums</a>
+    <h2 style="margin-top: 1rem; font-size: 2rem;">Canoe Lake</h2>
+</div>
+
+<div class="photo-grid">
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/cover.webp"
+         data-desc="This image showcases a delicate wildflower growing in a forest clearing, surrounded by lush green foliage and small mushrooms. The focus is on the flower with dewdrops visible on its petals, highlighting its freshness and beauty."
+         data-rating="SUMMARY: Strong technical execution and aesthetic appeal, but composition could benefit from more balance and leading lines."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/cover.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/IMG_20220524_192301.webp"
+         data-desc="A close-up of a grilled steak in a cast iron skillet with pepper on top, presented against a background of a campfire or open flames, creating an atmosphere of a barbecue or outdoor cooking scene."
+         data-rating="SUMMARY: The image achieves a realistic and appetizing presentation of the food, but the focus on the steak is slightly soft in some areas."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/IMG_20220524_192301.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/IMG_20220524_192304.webp"
+         data-desc="In the image, a man is seen in an outdoor setting, kneeling in the grass, with various items such as a cooking pot, bowls, cups, and a cell phone around him. He appears to be preparing food outdoors, possibly on a camping trip or a similar adventure. The lighting suggests it might be late afternoon or early evening, creating a warm ambiance."
+         data-rating="SUMMARY: The image has good technical execution with sharp focus on the subject and balanced exposure. It also shows originality in its storytelling, capturing a moment that feels both intimate and adventurous. However, the composition could be improved by better framing and leading lines to guide the viewer&#39;s eye more effectively through the scene."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/IMG_20220524_192304.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/IMG_20220524_192309.webp"
+         data-desc="A young man sits in a forest setting, kneeling on the ground in front of a camping stove with various outdoor supplies. He appears to be preparing for a hike or an outdoor adventure. The lighting suggests it might be either dawn or dusk, adding a serene quality to the scene."
+         data-rating="SUMMARY: The image conveys a moody and peaceful atmosphere through its composition and lighting. It tells a story of tranquility and exploration in nature. The main area for improvement is the technical execution; the focus on the man&#39;s face is slightly soft, which detracts from the sharpness and crispness of the photo."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/IMG_20220524_192309.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/IMG_20220524_192341.webp"
+         data-desc="This image captures a young man standing in front of a campsite, surrounded by trees and a campfire. The scene has an outdoor adventure vibe with its natural setting."
+         data-rating="SUMMARY: Great color and lighting, strong composition, but technical execution could be improved to increase the clarity and sharpness of the subject."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/IMG_20220524_192341.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_203859667.MP.webp"
+         data-desc="The image depicts a serene lake scene on a sunny day, with the focus on the calm water reflecting the surrounding forest. It is taken from the perspective of an observer standing at the edge of the waterway."
+         data-rating="SUMMARY: The photograph captures a peaceful and tranquil setting, but could benefit from additional composition considerations to guide the viewer&#39;s eye more effectively and address potential distractions in the edges."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_203859667.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_203903798.MP.webp"
+         data-desc="This image captures a tranquil scene at a lake, featuring a dock and a red buoy. The natural setting is emphasized by the surrounding forest."
+         data-rating="SUMMARY: The image effectively uses color, light, and composition to create a peaceful atmosphere. However, the focus could be sharper to enhance visual interest."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_203903798.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_203912580.MP.webp"
+         data-desc="A person sits alone on a pathway in a forest, looking at their phone. The image is a candid snapshot with a focus on human interaction with nature."
+         data-rating="SUMMARY: Good technical execution and composition, but could benefit from improved lighting quality and emotional impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_203912580.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_203913778.MP.webp"
+         data-desc="A dog in a forest clearing, wearing a blue jacket and black backpack, walking on a dirt path during sunset with a greenish hue."
+         data-rating="SUMMARY: Strong composition and moody lighting create an appealing image; however, the subject is partially obscured by vegetation, reducing visual impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_203913778.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_203920293.MP.webp"
+         data-desc="A tranquil landscape of a lake surrounded by trees under a clear blue sky, with a dock extending into the water in the foreground. The image has a naturalistic style with an emphasis on the serene atmosphere."
+         data-rating="SUMMARY: Strong color and light, but composition is slightly distracted at the edges, and depth could be improved through better foreground elements."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_203920293.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215328358.MP.webp"
+         data-desc="This image captures a serene forest scene by a riverbank, showcasing the tranquility of nature."
+         data-rating="SUMMARY: The image excels in technical execution and aesthetic appeal but could benefit from better composition."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215328358.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215331600.MP.webp"
+         data-desc="A serene woodland river scene in Canada during daylight. The image captures a peaceful moment in nature with a wide angle perspective."
+         data-rating="SUMMARY: This image showcases a well-executed composition and color palette, but could benefit from improved depth and contrast to enhance its visual weight and storytelling potential."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215331600.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215337724.MP.webp"
+         data-desc="This image captures a serene woodland scene featuring a river flowing next to lush greenery with dense trees and a sky that transitions from overcast to clear. The composition is balanced with the waterway dividing the frame into thirds, creating a peaceful atmosphere."
+         data-rating="SUMMARY: A technically strong image with excellent lighting, color, and depth, but the lack of a focal point weakens its storytelling potential."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215337724.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215351150.MP.webp"
+         data-desc="The image depicts a serene forest scene with a body of water, framed by a forest on both sides. A clearing in the foreground provides a vantage point overlooking the river."
+         data-rating="SUMMARY: Excellent lighting and composition create a tranquil atmosphere, but the image is lacking in subject diversity and storytelling elements."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215351150.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215354939.MP.webp"
+         data-desc="A tranquil forest scene with a river bank featuring soft natural light streaming through the trees and a shallow waterway reflecting the atmosphere. The image has an outdoor adventure vibe."
+         data-rating="SUMMARY: Great technical execution, but composition could be improved by focusing more on the sunbeam as the main subject to guide viewer&#39;s eye."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215354939.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215359415.MP-EFFECTS.webp"
+         data-desc="A black and white photograph captures a serene forest landscape during sunset. The image features a calm river running through the woods with tranquil trees lining the banks and a winding path in the foreground leading the viewer&#39;s eye towards the horizon."
+         data-rating="SUMMARY: Strong technical execution and emotional impact, but composition could be improved for better visual balance."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215359415.MP-EFFECTS.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215359415.MP.webp"
+         data-desc="The image presents a serene riverside landscape in a woodland area. It features calm waters with gentle ripples, surrounded by lush greenery and trees. There is an overcast sky overhead, which provides soft lighting and subdued colors."
+         data-rating="SUMMARY: Excellent natural light and a strong sense of tranquility make this image stand out. However, the composition could benefit from more dynamic framing and better balance between elements to improve visual weight."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215359415.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215423557.MP.webp"
+         data-desc="The image depicts a path in a wooded area with various trees, foliage, and some snow visible along the sides of the road. It&#39;s an outdoor scene on what appears to be a clear day with ample natural light."
+         data-rating="SUMMARY: A well-executed and visually appealing composition, but lacks depth and narrative impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215423557.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_215510252.MP.webp"
+         data-desc="A group of people is on a hiking trail surrounded by trees, with the forest serving as the backdrop for their adventure. The image has an adventurous and naturalistic feel."
+         data-rating="SUMMARY: Excellent use of natural light and composition, but technical execution could be improved through sharper focus and better exposure management."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_215510252.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_220000777.MP.webp"
+         data-desc="A tranquil forest landscape showcasing a serene riverbank in a wooded area. The photo captures the interplay of natural elements with an emphasis on the lush greenery and the still water."
+         data-rating="SUMMARY: Strong composition and color palette, but limited visual weight due to lack of clear subject matter."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_220000777.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220520_220003090.MP.webp"
+         data-desc="This image captures a serene forest scene at what appears to be either sunrise or sunset, with soft lighting that casts dappled shadows throughout the landscape. It is a naturalistic photograph featuring a tranquil river and a dense stand of coniferous trees under an overcast sky."
+         data-rating="SUMMARY: The image exhibits strong aesthetic qualities, particularly in the area of color and light, but could benefit from better composition and framing to remove distractions and emphasize the subject matter."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220520_220003090.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_013446971.NIGHT.webp"
+         data-desc="A nighttime shot captures a child at rest in a wooded area, their face illuminated by the flashlight, which creates an intimate atmosphere with the surrounding darkness as the backdrop."
+         data-rating="SUMMARY: Strong emotional impact due to the subject and lighting; however, technical issues could be improved for increased clarity and detail."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_013446971.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_013452141.NIGHT.webp"
+         data-desc="A heartwarming moment captured in the woods at night between two people, with a unique perspective from the woman&#39;s viewpoint sitting on the ground behind the child. The image has a soft, naturalistic color palette and a shallow depth of field emphasizing the subjects."
+         data-rating="SUMMARY: Strong emotional impact and effective use of depth; however, there is a technical issue with focus sharpness in both people&#39;s faces."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_013452141.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_013459624.MP.webp"
+         data-desc="A heartwarming family moment captured during a campfire gathering in a forest at night. The image captures a mother and child in a cozy, intimate setting with a limited color palette."
+         data-rating="SUMMARY: This photo conveys a strong emotional impact through the interaction between the subject and their environment, but the focus is soft, detracting from its potential sharpness."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_013459624.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_133350919.MP.webp"
+         data-desc="A person in a canoe on a river under a bridge, surrounded by trees with clear skies above. The image has a naturalistic style with a focus on the subject."
+         data-rating="SUMMARY: Strong composition and lighting, but the image could benefit from increased depth and the use of leading lines to guide viewer&#39;s eye."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_133350919.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_133353373.MP.webp"
+         data-desc="A peaceful scene of a person in a rowboat on a lake, surrounded by lush greenery and towering trees. The image has a tranquil, naturalistic style with vibrant colors and soft focus."
+         data-rating="SUMMARY: Stunning color and light create an immersive atmosphere, but technical execution is compromised by distracting focus and composition."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_133353373.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_133653045.PANO.webp"
+         data-desc="A composite of three photos showing an outdoor campsite during different times of day. The top photo shows a tent set up with a campfire, the middle photo captures dawn with mist over the water and the bottom photo shows dusk with fog and warm, low-lighting."
+         data-rating="SUMMARY: Excellent technical execution and composition in each photo, but the transition from one time of day to another is abrupt and lacks visual coherence."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_133653045.PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_133659326.MP.webp"
+         data-desc="A tranquil lakeside scene showcases an individual in a boat, with the serene water reflecting the surrounding trees. The dog in the foreground adds a sense of companionship to the image."
+         data-rating="SUMMARY: Strong composition and color grading, with the exception of slightly heavy-handed sharpening."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_133659326.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_133813240.MP.webp"
+         data-desc="A man paddling a canoe on a tranquil body of water with a forested shore in the background. The image captures a peaceful moment of solitude and connection to nature."
+         data-rating="SUMMARY: Good composition, natural lighting, but technical execution could be improved due to shallow depth of field and overexposed highlights."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_133813240.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_133813240_exported_1000_1653494527016.webp"
+         data-desc="This image captures a serene moment of a man and a dog on a lake in a wooded area. The focus is on the couple with the paddle, while the background shows a tranquil forest and calm water."
+         data-rating="SUMMARY: The photo showcases strong technical execution with good composition and color theory, but could benefit from a more dynamic exposure to highlight details and add to the storytelling impact."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_133813240_exported_1000_1653494527016.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_161259519.MP.webp"
+         data-desc="A forest floor, lush with green moss and sparse vegetation, is seen from a low angle in this image. The perspective is slightly uneven due to the tilt of the camera."
+         data-rating="SUMMARY: The image captures the tranquility and beauty of nature but suffers from an unintended technical flaw that detracts from its overall impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_161259519.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_161332770.MP.webp"
+         data-desc="A tranquil forest scene with a small flower plant in the foreground. The image captures the delicate beauty of nature with its rich greens and soft light."
+         data-rating="SUMMARY: Strong emotional impact and visual weight, but the composition could benefit from a more balanced framing and perspective."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_161332770.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_161339930.MP.webp"
+         data-desc="A close-up of a small wildflower sprouting in the forest, surrounded by fallen needles. The image captures the delicate beauty of nature with soft focus background and natural lighting."
+         data-rating="SUMMARY: Strong technical execution and visual weight, but the composition could benefit from more deliberate framing."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_161339930.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_161345614.MP.webp"
+         data-desc="This is an image of a wildflower in full bloom, surrounded by a green forest floor with pine needles scattered around. The flower has vibrant pink and white petals and a hint of red in its center. The surrounding area is lush and verdant, creating a serene natural setting."
+         data-rating="SUMMARY: Strong technical execution and pleasing aesthetics, but the composition could be improved by better framing to eliminate some distracting elements at the edges."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_161345614.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_191309046.MP.webp"
+         data-desc="This image shows a tree log on the forest floor, with an insect hole in it. The log is centrally placed within the frame, with some surrounding foliage and pine needles at the base. There are no people or animals visible in the photo."
+         data-rating="SUMMARY: The image captures a natural scene with good focus on the tree trunk, but the composition could be improved to better utilize depth and scale for added visual interest."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_191309046.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220521_191325059.MP.webp"
+         data-desc="An up-close image of a tree stump featuring an abandoned birdhouse filled with bird droppings in the woods. The scene has a dark, moody tone with selective focus on the birdhouse and surrounding branches."
+         data-rating="SUMMARY: A powerful sense of stillness and mystery, but could benefit from improved focus and composition to reduce visual distractions."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220521_191325059.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_012020124.NIGHT.webp"
+         data-desc="Night scene at a lake, shot from across the water. A serene forest setting with stillness of the water reflecting the sky. The image has a tranquil mood and uses contrasting colors in lighting and foliage."
+         data-rating="SUMMARY: Excellent color palette, but composition could be improved for visual impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_012020124.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_012046174.NIGHT.webp"
+         data-desc="A campsite under a starry sky at night with campers, tents, and logs nearby. The foreground features a dog sitting in front of the scene."
+         data-rating="SUMMARY: Strong composition and lighting; could benefit from better focus and exposure control."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_012046174.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_012240266.NIGHT.webp"
+         data-desc="A tranquil nighttime view of a serene lake in a wooded area with a clear sky, captured from the shoreline using a fisheye lens. The image features a peaceful atmosphere with a subtle reflection on the water and a soft bokeh effect."
+         data-rating="SUMMARY: An evocative scene with strong emotional impact, but technical execution could be improved with sharper focus and better control over digital noise."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_012240266.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_121735047.MP.webp"
+         data-desc="In this image, a young child is interacting with an adult in a forest setting during what appears to be rainfall. The photograph has a naturalistic color palette and focuses on the human-animal interaction."
+         data-rating="SUMMARY: The image exhibits a strong sense of storytelling and emotional impact due to the subject matter, but may benefit from improved technical execution in terms of exposure and dynamic range, as well as slightly more effective use of framing and composition to guide the viewer&#39;s eye through the scene."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_121735047.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_122207577.MP.webp"
+         data-desc="A young boy stands on a rocky ledge overlooking a calm lake at dusk. The scene is set in a mountainous landscape with dense forest surrounding it."
+         data-rating="SUMMARY: Excellent use of natural light and a dynamic subject, but the focus could be sharper, particularly on the edges where the boy&#39;s presence is less defined."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_122207577.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_122214973.MP.webp"
+         data-desc="A young boy stands on a path in a wooded area by the side of a river, capturing an intimate moment with nature. The image exudes a sense of adventure and childhood curiosity."
+         data-rating="SUMMARY: The composition and lighting are commendable, but the photograph could benefit from stronger storytelling elements to enhance its emotional impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_122214973.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_154645063.MP.webp"
+         data-desc="This image features a small, leafy plant growing amidst pine needles on a forest floor with green moss underfoot. The perspective is from above, and it appears to be taken with a macro lens. The photo has an intimate, almost microscopic quality, focusing on the plant in the center while capturing surrounding details like leaves and fallen branches."
+         data-rating="SUMMARY: The image excels at composition and technical execution, with a strong emphasis on depth and scale. The primary subject is sharply in focus while the background elements provide context without being distracting. However, the lighting quality could be enhanced to create more visual interest and contribute to a stronger emotional impact."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_154645063.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_154651035.MP.webp"
+         data-desc="In this image, we see a small tree growing in an overgrown area with moss and pine needles. The photo has a naturalistic style and emphasizes the texture and contrast of the forest floor."
+         data-rating="SUMMARY: A beautiful depiction of nature with good composition and color palette, but could benefit from better technical execution and a higher level of visual weight."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_154651035.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_154851037.MP.webp"
+         data-desc="An image of a small tree in a forest setting, surrounded by green leaves and a bed of dead leaves on the ground. The composition is square, with the tree positioned slightly off-center to the right."
+         data-rating="SUMMARY: A strong emphasis on color and lighting, but the framing could be improved for greater depth and perspective."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_154851037.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_155153791.MP.webp"
+         data-desc="An image of a forest floor showcasing small plants and trees. The perspective is low to the ground, making the plants appear larger in comparison."
+         data-rating="SUMMARY: Excellent technical execution with strong composition, but the lighting lacks depth and the subject&#39;s visual weight could be improved for a more engaging photo."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_155153791.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_203648410.MP.webp"
+         data-desc="This image depicts a serene woodland setting with a river in the foreground, surrounded by lush green foliage. The focus is on the water&#39;s edge, and the sunlight filters through the trees, creating a peaceful and natural atmosphere."
+         data-rating="SUMMARY: The photograph demonstrates strong technical execution and a harmonious color palette, while composition could benefit from more deliberate framing to reduce distractions and enhance depth of field."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_203648410.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_203652309.MP.webp"
+         data-desc="This image captures a serene landscape scene featuring a river flowing alongside a forest trail. The foreground is dominated by the riverbank with some vegetation, while the background showcases the natural surroundings and sky."
+         data-rating="SUMMARY: The image offers beautiful composition and color, but suffers from some technical issues that detract from the overall impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_203652309.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_203656798.MP.webp"
+         data-desc="This image captures a serene forest scene featuring a river, which is viewed from a trail. The surrounding greenery, trees, and a small clearing in the foreground provide depth to the composition. The lighting appears natural with a soft transition from highlights to shadows."
+         data-rating="SUMMARY: A well-executed composition and thoughtful use of light; however, there could be improvements in subject isolation and perhaps greater visual weight."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_203656798.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_203659125.MP.webp"
+         data-desc="This image captures a serene scene of a hiker in the woods, with an abundance of natural colors and textures. The person is walking on a rocky trail, surrounded by lush greenery, with trees in the background."
+         data-rating="SUMMARY: The image showcases good focus and sharpness, with a balanced exposure that highlights the subject. However, the composition could benefit from better framing and perspective to draw attention to the person more effectively."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_203659125.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_230301086.PANO.webp"
+         data-desc="A collage of three images depicting a serene outdoor scene in a forested area. The style is naturalistic with a focus on landscape photography."
+         data-rating="SUMMARY: Strong visual weight and composition, though the color grading could use refinement to enhance emotional impact."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_230301086.PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_230308378.MP.webp"
+         data-desc="In this image, three individuals are in a forest setting on a sunny day, standing on rocks. The focus is sharp on the family, with motion blur evident in the background. Exposure appears to be well-handled for the subjects, but the background could have been better managed. There&#39;s some visible noise, especially noticeable in the trees and sky."
+         data-rating="SUMMARY: The photo has strong emotional impact with a real, candid family moment. However, there is room for improvement in terms of technical execution, specifically regarding exposure management and background distractions."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_230308378.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_230325366.MP.webp"
+         data-desc="A tranquil lakeside scene showcasing a body of water nestled among trees and rocks under an overcast sky. The image captures the natural beauty of a serene forest landscape."
+         data-rating="SUMMARY: Strong on technical execution, composition, and aesthetic impact, with room for improvement in depth and scale."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_230325366.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_230331115.MP.webp"
+         data-desc="A tranquil lake scene on a cloudy day, with lush green trees surrounding the water. The focus is slightly soft in the background, with a clear view of a tree stump in the foreground."
+         data-rating="SUMMARY: Strong emotional impact and color palette, but technical issues with focus and depth composition."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_230331115.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220522_230342466.MP.webp"
+         data-desc="A tranquil lake scene with forested shores under a clear sky on what appears to be a calm day. The image showcases a natural landscape with trees and water."
+         data-rating="SUMMARY: Strong technical execution, composition, and aesthetic appeal. However, the color and lighting could be improved for more depth and a stronger emotional impact."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220522_230342466.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_003444722.MP.webp"
+         data-desc="An outdoor campfire burning on a rock formation in a wooded area at dusk. The fire is casting shadows and has a blue flame effect. The setting is serene and inviting, with forest foliage in the background."
+         data-rating="SUMMARY: Strong technical execution with an interesting subject, but the color and lighting could be improved to enhance the storytelling aspect."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_003444722.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_003449583.MP.webp"
+         data-desc="A man is seated on a bench in front of a forest. He&#39;s casually dressed and appears to be enjoying his time outdoors. The lighting seems natural, with no harsh shadows or blown highlights."
+         data-rating="SUMMARY: Technical execution is good with a focus on the subject, natural exposure that draws attention, and minimal noise. Composition could benefit from a more dynamic perspective and potentially leading lines for better narrative flow. Color and lighting are pleasant but may require additional depth to create a 3D feel. Aesthetic impact could be improved by adding elements that suggest a story or atmosphere beyond the casual outdoor setting."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_003449583.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_014714719.NIGHT.webp"
+         data-desc="A tranquil nighttime scene of a body of water, possibly a river or lake, surrounded by forest, with reflections on its surface. The image is captured in the golden hour and has a serene atmosphere."
+         data-rating="SUMMARY: Strong emotional impact through the use of natural light and peaceful scenery; however, the composition may benefit from more careful consideration of leading lines and the rule of thirds for visual balance."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_014714719.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_024108784.MP.webp"
+         data-desc="This is a black and white photo featuring an artistic shot of an urban environment at night. The image captures vertical lines that suggest a cityscape and uses lighting to create contrast and texture."
+         data-rating="SUMMARY: The image demonstrates strong technical execution with excellent lighting quality, color theory, and composition. However, the storytelling aspect could be improved by adding more context or narrative elements to enhance the emotional impact on the viewer."
+         data-score="9">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_024108784.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_024223618.NIGHT.webp"
+         data-desc="A night-time sky photo taken at night. It depicts a starry sky with a black silhouette of trees visible against the backdrop of the night sky. The image has a dark, moody tone and captures the contrast between the darkness of the foreground and the brightness of the stars above."
+         data-rating="SUMMARY: While the technical execution is strong with good focus on the stars and no major artifacts, the composition could be improved by removing distracting elements in the corners. The image is visually striking for its contrast of light and dark, but it could benefit from a more interesting or unique subject to enhance its originality and visual weight."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_024223618.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_024708868.NIGHT.webp"
+         data-desc="The image presents a serene night scene of a forested area at dusk, with the skyline silhouetted against a twilight sky and the faint glow of distant lights visible in the background."
+         data-rating="SUMMARY: The photograph demonstrates a strong sense of atmosphere and mood, with a balanced exposure that showcases both highlights and shadows. Its composition effectively uses leading lines and natural light to create depth, but could benefit from a more intentional use of color theory and perhaps a closer examination for technical artifacts or distractions in the frame."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_024708868.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_024833311.NIGHT.webp"
+         data-desc="An expansive night sky fills the frame, creating a sense of vastness. The image is captured from inside a building or car, showing only darkness outside. There&#39;s a slight light leak at the top left corner, which adds to the moody ambiance."
+         data-rating="SUMMARY: A powerful, mysterious atmosphere with an intriguing use of space and darkness, but the image could benefit from better lighting control to avoid unwanted leaks."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_024833311.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_024849261.NIGHT.webp"
+         data-desc="This image captures a serene night scene at a lake, where the night sky is adorned with the aurora borealis, creating an ethereal glow. The foreground features a body of water reflecting the colors of the northern lights."
+         data-rating="SUMMARY: Stunning light and color effects, but the image could benefit from a more dynamic composition to enhance depth and perspective."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_024849261.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_025146412.NIGHT.webp"
+         data-desc="A nighttime skyscape with a focus on the Northern Lights. The image features a dark foreground, midground, and background, capturing an otherworldly atmosphere."
+         data-rating="SUMMARY: Impressive composition and visual weight in the Northern Lights, but technical execution could be improved for sharpness and dynamic range."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_025146412.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_025146412.NIGHT~2.webp"
+         data-desc="This image depicts a serene night sky filled with stars, viewed from a dark forest or wooded area. The photo has a slightly grainy texture due to the long exposure and low light conditions."
+         data-rating="SUMMARY: The image is impactful in its composition and lighting but lacks technical sharpness and may benefit from more refined artistic elements."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_025146412.NIGHT~2.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_105728374.MP.webp"
+         data-desc="A serene landscape of a foggy morning by a lake, framed by trees. The image captures the tranquility of nature with its misty atmosphere and calm water."
+         data-rating="SUMMARY: Strong emotional resonance through the use of fog to create a sense of solitude and peace, but technical execution could be improved with sharper focus on the trees in the foreground."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_105728374.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_105806732.MP.webp"
+         data-desc="A forest setting showcases a slackliner performing a daring act over a river. The image captures the dynamic movement with motion blur and emphasizes the subject against the surrounding trees and water."
+         data-rating="SUMMARY: Striking composition and lighting, but the focus is slightly soft on the slackliner."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_105806732.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_105834551.MP.webp"
+         data-desc="This image captures a serene camping scene in a misty forest. A tent is pitched among the trees, with a clearing visible in the foggy background. The focus and sharpness are excellent, but there&#39;s a slight distraction from some blurry elements around the edges of the frame."
+         data-rating="SUMMARY: The image has strong technical execution with a crisp focal point on the tent and good depth perception. However, the composition could be improved by removing or reducing the distracting elements at the edges."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_105834551.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_105903907.MP.webp"
+         data-desc="An expansive, foggy lake reflects the muted colors of a forest in the distance. The perspective is from a high vantage point, creating a sense of depth and isolation."
+         data-rating="SUMMARY: A strong sense of atmosphere and composition, with a minor flaw in the image&#39;s sharpness."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_105903907.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_105933109.MP.webp"
+         data-desc="This image captures a tranquil foggy scene in nature. A forest lake is seen from a distance, creating a sense of depth and mystery. The fog obscures much of the surrounding area, adding an air of mystique to the setting."
+         data-rating="SUMMARY: Strengths include the moody atmosphere created by the fog and water, along with the natural color palette and use of light. An area for improvement could be the framing, which lacks a strong rule of thirds or leading lines focus, potentially making the image feel unbalanced or static."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_105933109.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110146223.MP.webp"
+         data-desc="A serene misty lake in a mountainous forest on a foggy day. Reflections of trees create an otherworldly atmosphere."
+         data-rating="SUMMARY: Stunning atmospheric conditions and mood, marred by lack of focal point clarity due to fog."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110146223.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110154811.MP.webp"
+         data-desc="This image captures a serene autumn day in a forest. The scene is dominated by misty fog that casts a soft, diffused light on the surroundings, creating a dreamlike atmosphere."
+         data-rating="SUMMARY: Striking color contrast and emotional depth, marred by uneven exposure and less-than-ideal composition."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110154811.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110438008.MP.webp"
+         data-desc="An image of a forest with trees in the foreground and a foggy, overcast sky in the background. The photo is taken during what appears to be either dawn or dusk due to the low light conditions."
+         data-rating="SUMMARY: Good technical execution with some distractions in composition and could benefit from more dynamic lighting to enhance mood."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110438008.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110503632.MP.webp"
+         data-desc="A foggy lakeside scene showcasing a serene landscape under the watchful eyes of trees. The image is captured from a forest clearing, offering an atmospheric perspective on a tranquil lake view."
+         data-rating="SUMMARY: Technically sound with a captivating composition, but could benefit from more dramatic lighting and a stronger narrative."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110503632.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110506377.MP.webp"
+         data-desc="The image shows a close-up of pine tree branches with needles in sharp focus against an overcast sky. The composition is framed by a single branch on the left side, leading the eye towards the center of the frame where multiple branches converge, creating a sense of depth and texture."
+         data-rating="SUMMARY: Excellent technical execution, particularly in terms of sharpness and exposure. However, the image could benefit from more deliberate composition to eliminate distracting elements and create a stronger visual narrative."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110506377.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110525904.MP.webp"
+         data-desc="In this image, we see an otter swimming calmly in a body of water. The focus is sharp on the otter while the background is softly blurred, emphasizing its presence. The lighting and exposure are balanced, providing a clear view of the animal and the surrounding environment."
+         data-rating="SUMMARY: The image has strong technical execution with a well-executed subject in focus. However, it could benefit from a more dynamic composition to guide the viewer&#39;s eye better."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110525904.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110528788.MP.webp"
+         data-desc="In the given image, there is a bird in flight captured over a body of water, possibly during dawn or dusk due to the soft, warm lighting. The focal length seems appropriate for capturing both the bird and its immediate surroundings, though some distractions are present at the edges of the frame."
+         data-rating="SUMMARY: The image showcases lovely lighting and captures a moment of nature with a sense of calmness. However, it may benefit from addressing composition distractions and improving overall framing for a more powerful visual impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110528788.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110534372.MP.webp"
+         data-desc="A foggy lake scene with an animal, likely a muskrat or beaver, in motion. The image has a misty, ethereal atmosphere."
+         data-rating="SUMMARY: Stunning composition and moody light create a captivating visual experience; however, the exposure and dynamic range could be improved for a more dramatic effect."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110534372.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110536652.MP.webp"
+         data-desc="A serene foggy forest lake, photographed in black and white, creates a mystical atmosphere. The image is taken from a vantage point across the water, emphasizing its tranquility with a distant dock."
+         data-rating="SUMMARY: Strong composition and emotional impact, slightly compromised by softness on the right side of the frame."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110536652.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110555553.MP.webp"
+         data-desc="An image of a tranquil forest scene, featuring trees, foliage, and a body of water. The perspective is from above, providing an immersive view of nature. The lighting is soft with gentle shadows, enhancing the serene atmosphere."
+         data-rating="SUMMARY: Excellent use of color and light, but the composition could be improved to avoid distractions around the edges."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110555553.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110622966.MP.webp"
+         data-desc="A foggy mountain lake on a misty day, with a wooden dock extending into the water. The image has a serene, moody quality."
+         data-rating="SUMMARY: Stunning atmosphere and foggy texture create an immersive scene, but focus could be sharper and composition is slightly cluttered at the edges."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110622966.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_110626832.MP.webp"
+         data-desc="The image depicts a serene winter landscape with foggy mornings covering a lake. A shoreline is visible with trees and snowy ground, creating a peaceful atmosphere."
+         data-rating="SUMMARY: The image is technically sound with a strong storytelling element. However, the focus could be improved to sharpen the details and enhance the depth of field."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_110626832.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115518388.MP.webp"
+         data-desc="A tranquil scene of a lake surrounded by pine trees on a foggy day. The image has a dreamy quality with soft focus in the foreground and mist rising from the water."
+         data-rating="SUMMARY: Strong composition and moody atmosphere; however, there is room for improvement in terms of exposure, as some areas of the scene appear underexposed, detracting from the overall visual appeal."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115518388.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115522156.MP.webp"
+         data-desc="A tranquil forest landscape captures a serene moment by a lake with fog rising. The image has a muted color palette with an emphasis on greens and earth tones."
+         data-rating="SUMMARY: Excellent atmospheric depth and composition, but the lighting appears slightly flat without dramatic &#34;modeling&#34; on the subject."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115522156.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115551127.MP.webp"
+         data-desc="This image captures a serene landscape at dawn or dusk, featuring a calm lake reflecting its surroundings with clear water, surrounded by a forest and mountains in the background. A misty sky is visible above, contributing to the peaceful atmosphere."
+         data-rating="SUMMARY: Strong in color and light quality, with effective use of leading lines through the reflection in the water. However, it lacks technical sharpness due to softness in the image."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115551127.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115556019.MP.webp"
+         data-desc="A serene scene at a lake on what appears to be a foggy morning with calm waters reflecting the surrounding trees. The image is shot from a distance with foreground rocks adding depth and perspective."
+         data-rating="SUMMARY: The image captures the tranquil beauty of nature with effective use of lighting, composition, and color. However, it lacks a strong focal point to draw the viewer&#39;s attention."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115556019.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115600506.MP.webp"
+         data-desc="A tranquil forest scene captures the foggy mist over a lake in the foreground with trees reflecting in the water. The image is taken from an elevated perspective, providing a serene and expansive view of the natural landscape."
+         data-rating="SUMMARY: Impressive composition and use of light create a peaceful atmosphere, but the image may benefit from more dynamic contrast and sharper details in the subject matter."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115600506.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115626540.MP.webp"
+         data-desc="A tranquil lake scene at dawn. The water&#39;s surface is calm with reflections of the surrounding trees. A misty morning fog adds a mystical quality to the environment."
+         data-rating="SUMMARY: The image captures a serene and natural moment, but the perspective could be improved for a more immersive experience."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115626540.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_115637158.MP.webp"
+         data-desc="This image captures a serene, misty lake scene with a focus on the tranquility of nature, shot in color. The composition includes a leading diagonal line created by the reflection and the shoreline, which adds depth to the image."
+         data-rating="SUMMARY: Strong composition with a captivating sense of atmosphere; however, the image could benefit from better lighting and a more dynamic range to enhance the mood further."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_115637158.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120209810.MP.webp"
+         data-desc="A tranquil forest scene at sunset. The sun casts warm light on the water surface, creating a serene atmosphere."
+         data-rating="SUMMARY: Impressive focus and dynamic range in the lighting, but the composition is slightly distracted by the framing of the image."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120209810.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120218070.MP.webp"
+         data-desc="A serene forest scene at dawn, with fog rising from a lake to meet the sun&#39;s rays. The landscape includes trees in autumn colors and reflections on the water."
+         data-rating="SUMMARY: Strong technical execution and composition; however, the image could benefit from greater contrast and a clearer narrative."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120218070.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120227037.MP.webp"
+         data-desc="This image depicts a serene natural landscape featuring a lake surrounded by forest, viewed from a vantage point near the water&#39;s edge during daylight hours. The sunlight filters through the trees and casts a warm glow on the scene, emphasizing the tranquility of the location."
+         data-rating="SUMMARY: Strong composition with effective use of lighting, but lacks depth and could benefit from better framing to enhance visual interest."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120227037.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120433579.MP.webp"
+         data-desc="The image depicts a serene landscape scene featuring a tranquil lake surrounded by forested hills under an overcast sky with some blue peeking through. There are no visible distracting elements at the edges. The perspective is from the riverbank looking out towards the water, which appears calm and slightly foggy."
+         data-rating="SUMMARY: The image exhibits a harmonious balance of technical execution, composition, color and lighting, and aesthetic and emotional impact, each contributing to its overall beauty. A notable area for improvement could be the overcast sky&#39;s contribution to the dynamic range; however, it adds an atmospheric quality that complements the scene."
+         data-score="9">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120433579.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120448248.MP.webp"
+         data-desc="A tranquil forest scene by a lake at dusk, where the sky reflects in the water creating a symmetrical effect. The image captures a sense of serenity and natural beauty."
+         data-rating="SUMMARY: Excellent use of lighting, but the composition feels a bit static with no leading lines or dynamic foreground elements to draw the eye."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120448248.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120453032.MP.webp"
+         data-desc="The image captures a serene forest scene under a blue sky, with trees reflecting in the water. The focus is sharp on the trees and the foreground, while the background is out of focus, creating depth."
+         data-rating="SUMMARY: Strong technical execution and composition; the image could benefit from more dramatic lighting to enhance the emotional impact."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120453032.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120648592.MP.webp"
+         data-desc="In a serene forest setting, a couple enjoys a campfire in the wilderness, with pine trees as their backdrop. The image has a rustic charm and captures an intimate moment of connection to nature."
+         data-rating="SUMMARY: A strong composition and evocative atmosphere, but could benefit from better lighting on the subject."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120648592.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_120708406.MP.webp"
+         data-desc="This is an image of a couple sitting in front of a campfire on a forest floor with trees and greenery around them. The photograph has a candid feel, capturing a moment between the two individuals."
+         data-rating="SUMMARY: A lovely moment captured with a strong focus and composition, but the lighting could be improved to better highlight the subjects."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_120708406.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_121505028.MP.webp"
+         data-desc="A serene lake scene showcasing a forested shoreline under a clear blue sky. The reflection of trees on the water&#39;s surface creates a tranquil and picturesque setting."
+         data-rating="SUMMARY: Excellent technical execution and emotional impact, but composition could be enhanced by removing distracting elements."
+         data-score="9">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_121505028.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_121507945.MP.webp"
+         data-desc="A tranquil forest lake scene is captured from the shoreline, featuring calm water reflecting lush green trees. The image is rich in greens and blues, with a clear sky overhead."
+         data-rating="SUMMARY: Striking natural beauty, but could benefit from more effective framing to minimize distractions."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_121507945.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_121509604.MP.webp"
+         data-desc="A serene mountain lake with clear reflections on its surface, surrounded by a forest of tall evergreen trees. The image captures a moment of tranquility in nature, with a strong emphasis on the stillness of the water and the surrounding foliage."
+         data-rating="SUMMARY: Stunning natural beauty and clarity, but composition could be improved for more visual impact."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_121509604.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_121515553.MP.webp"
+         data-desc="This image depicts a tranquil lake scene surrounded by a forested area with a slight mist or fog creating an atmosphere of serenity. The foreground features a reflective body of water with the reflection of trees and clouds, while the background showcases the misty mountain range."
+         data-rating="SUMMARY: This image showcases excellent technical execution, but the composition could benefit from refining the perspective and removing distracting elements to enhance the storytelling aspect and create a more cohesive visual narrative."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_121515553.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_121524040.MP.webp"
+         data-desc="A serene lake surrounded by trees is captured from a distance in this image, creating a calm and tranquil atmosphere. The reflection on the water adds depth and symmetry to the composition."
+         data-rating="SUMMARY: This image excels in its technical execution with excellent focus, exposure, and color palette. However, it lacks a strong emotional impact and may benefit from more dynamic composition choices."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_121524040.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_121527957.MP.webp"
+         data-desc="A serene lake scene at sunrise or sunset with fog rising from the water. The image has a tranquil, contemplative mood with reflections on the water and misty trees."
+         data-rating="SUMMARY: Strong lighting quality and color palette, though the focus is a bit soft in some areas and the composition does not fully utilize depth or leading lines."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_121527957.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_142245994.MP.webp"
+         data-desc="This image captures a serene moment by a lake where an adult is teaching a child to fish. The scene has a calm and peaceful atmosphere with natural lighting that highlights the subjects and the surrounding environment."
+         data-rating="SUMMARY: Strong emotional connection between the adult and child, but the composition lacks depth and could benefit from more dynamic framing."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_142245994.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_144906031.MP.webp"
+         data-desc="This image captures a tranquil scene of a riverbank. The water is calm, reflecting the surrounding environment with subtle ripples and a few small rocks or debris. The shoreline is bordered by trees, adding depth to the scene."
+         data-rating="SUMMARY: The image showcases technical excellence in focus, exposure, and noise reduction. However, it lacks compositional interest due to a simple framing and unintentional distractions on the edges."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_144906031.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_151113421.MP.webp"
+         data-desc="In this image, a man is seen smoking a cigarette by a lake. He&#39;s in focus with shallow depth of field, emphasizing him against the blurred background. The lighting is natural and soft, casting a slight shadow on his face."
+         data-rating="SUMMARY: The technical execution is strong, with good focus and composition. However, the emotional impact could be enhanced by adding more context or a clearer narrative to the scene."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_151113421.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_151116260.MP.webp"
+         data-desc="A person is holding a small fish in their hand, displaying it against a backdrop that includes natural elements like water and forest. The image has a candid quality, capturing an authentic moment."
+         data-rating="SUMMARY: Excellent subject matter and lighting, but the composition could be improved for better balance and a more engaging narrative."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_151116260.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_151118238.MP.webp"
+         data-desc="An outdoor enthusiast is holding up a fish he caught during his fishing trip, with a tranquil river in the background. The image captures the joy of fishing while conveying the beauty of nature."
+         data-rating="SUMMARY: While the composition and storytelling aspects are well-executed, technical execution could be improved to enhance the subject&#39;s focus and sharpness."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_151118238.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_151125545.MP.webp"
+         data-desc="This image captures an outdoor moment where a man is holding a young child&#39;s hand over a log in a forest setting, surrounded by lush greenery and a wooden bench nearby. The lighting is natural and appears to be soft and diffused, with the shadows being cast evenly across the scene."
+         data-rating="SUMMARY: The image demonstrates a lovely interaction between adults and children amidst nature, but the focus could be sharper and the composition might benefit from a clearer separation of foreground, midground, and background elements to provide more depth."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_151125545.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_163335926.MP.webp"
+         data-desc="A serene lakeside scene captures the tranquility of nature with a focus on a calm body of water in the foreground. The background features a distant shoreline under an overcast sky, providing a sense of depth and open space."
+         data-rating="SUMMARY: A solid technical execution with strong composition, while the emotional impact could be further developed to enhance the viewer&#39;s experience."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_163335926.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_194928097.MP.webp"
+         data-desc="This image shows an individual holding up a frog in front of their body, with the person being shirtless. The focus appears to be on the frog and the background is blurred. There are trees and other natural elements in the distance."
+         data-rating="SUMMARY: The photo has strong visual weight and storytelling, with interesting composition. However, it falls short in technical execution, specifically with respect to exposure and depth of field."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_194928097.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_194929513.MP.webp"
+         data-desc="A young man in a white tank top is holding up a small fish at a campsite next to a body of water. He is standing on a path with trees and foliage in the background, and he appears surprised by his catch."
+         data-rating="SUMMARY: The image has good composition and focus, but the lighting could be improved for more dramatic effect."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_194929513.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_194933890.MP.webp"
+         data-desc="A candid moment in nature where an adult and child are engaging in fishing activity at a lake. The focus is on the adult with a small amount of motion blur around them, suggesting movement. Exposure appears to be even, with no overexposed or underexposed areas. Artifacts seem minimal, and noise is low."
+         data-rating="SUMMARY: A well-executed image capturing an intimate moment between generations in nature. The main area for improvement is the framing; while there is a clear subject, the child&#39;s placement could have been better optimized to guide the viewer&#39;s eye more effectively."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_194933890.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_195128228.MP.webp"
+         data-desc="A close-up shot of a stream in nature showcasing a forested area with water flowing over rocks. The image is taken during daylight hours."
+         data-rating="SUMMARY: Beautifully captures the natural environment, though the angle and perspective could be more intentional to enhance depth and interest."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_195128228.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_195131555.MP.webp"
+         data-desc="This image captures a tranquil scene of a small creek in a wooded area. The focus is on the water&#39;s edge with some plants growing alongside it. The lighting is natural, casting soft shadows and highlighting the textures of the bark."
+         data-rating="SUMMARY: A serene nature scene with good technical execution, but could benefit from more depth and a clearer narrative to enhance its emotional impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_195131555.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_195145909.MP.webp"
+         data-desc="A young boy is standing on riverbank holding a fishing net in anticipation of catching fish. The scene captures a simple moment of childhood curiosity. The image has a naturalistic, candid style with an emphasis on human-nature interaction."
+         data-rating="SUMMARY: Strong composition and lighting, but the focus could be sharper and more detailed."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_195145909.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220523_195148138.MP.webp"
+         data-desc="This image depicts a young boy by a body of water. He is wearing an orange shirt and holds a fishing rod in his hands. The scene has a natural, outdoor aesthetic with a focus on the subject."
+         data-rating="SUMMARY: A visually appealing image with good composition and light quality; however, the lighting could be enhanced to provide more contrast and detail in the boy&#39;s face."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220523_195148138.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_000507473.MP-EFFECTS.webp"
+         data-desc="This image showcases a serene lake scene at sunrise or sunset, with the water reflecting the warm colors of the sky. The photo is taken from the shoreline, and it captures the tranquility of nature with the horizon line dividing the calm water and the sky filled with clouds."
+         data-rating="SUMMARY: The image displays excellent technical execution with sharp focus on the subject (the body of water), good exposure that highlights the colors in the sky without overblowing the highlights or crushing the shadows, and minimal digital noise. It has a strong composition, utilizing leading lines to draw the viewer&#39;s eye through the frame and providing depth by contrasting the smooth water with the ripples near the shore. The use of color is evocative and harmonious, contributing to an overall emotional impact that captures the viewer&#39;s attention. However, the visual weight of the subject could be stronger if there were more elements in the foreground or midground to guide the viewer&#39;s eye and create a sense of scale."
+         data-score="9">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_000507473.MP-EFFECTS.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_000507473.MP.webp"
+         data-desc="This is an image of a tranquil scene featuring a lake at sunrise or sunset with the sky reflecting on its surface, taken from the opposite shore. The foreground shows calm water, and there are trees surrounding the lake."
+         data-rating="SUMMARY: A picturesque landscape shot with soft light, which captures a serene mood. However, the image could benefit from improved composition to eliminate potential distractions and enhance visual balance."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_000507473.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_000514765.MP.webp"
+         data-desc="A tranquil landscape scene featuring a clear lake surrounded by trees, captured during what appears to be either sunrise or sunset. The reflection of trees on the water&#39;s surface is visible."
+         data-rating="SUMMARY: This image showcases strong composition and a peaceful atmosphere but could benefit from more intentional use of lighting to enhance mood and depth."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_000514765.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_000523605.MP.webp"
+         data-desc="An expansive lake under a cloudy sky at sunset, surrounded by lush green trees in an alpine setting. The tranquil scene captures the calm before dusk with a soft-focus water surface."
+         data-rating="SUMMARY: The image presents a serene and picturesque landscape with excellent color gradients, but it could benefit from more defined edges and sharper focus."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_000523605.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_003717494.MP.webp"
+         data-desc="This image captures a serene lake scene at sunset or dawn, showing a clear sky reflecting on the water with the silhouette of trees in the background and subtle motion blur along the shoreline. The foreground is sharp and well-lit, while the background fades into darkness."
+         data-rating="SUMMARY: A strong composition with beautiful light and a pleasant mood, but technical execution and aesthetics could be improved to maximize clarity and impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_003717494.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_004036895.MP.webp"
+         data-desc="A tranquil lake scene at dusk, with the calm water reflecting the fading colors of the sky. The image is taken from a vantage point that frames the lake and surrounding forest in the foreground, providing a peaceful view of nature&#39;s serenity."
+         data-rating="SUMMARY: The photo captures a visually appealing and serene scene. However, there could be improvements on the horizon line placement to enhance composition."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_004036895.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_010502435.MP.webp"
+         data-desc="A serene landscape scene at twilight, featuring a reflection of trees in the water with a misty forest backdrop under a cloudy sky. The image is taken from an elevated vantage point."
+         data-rating="SUMMARY: Strong composition and evocative color palette, but the focus could be sharpened to enhance depth."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_010502435.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_010744109.MP.webp"
+         data-desc="The image captures a tranquil landscape scene of a lake at dusk, with a reflection in the water adding to the calm atmosphere. It&#39;s a serene view of nature, taken from the shoreline looking towards the water."
+         data-rating="SUMMARY: The image has strong technical execution and emotional impact, but its composition is somewhat simplistic."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_010744109.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_100717361.MP.webp"
+         data-desc="This image captures a serene lake scene at sunrise or sunset, with mist rising from the water and surrounding trees reflecting in the calm surface of the water. A forested shoreline is visible on the left side of the frame."
+         data-rating="SUMMARY: The image has strong visual weight with excellent use of color and lighting. It creates a peaceful mood and tells a story of tranquility, but the composition could benefit from more depth and better framing."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_100717361.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_100720011.MP.webp"
+         data-desc="This image depicts a tranquil scene of a lake surrounded by forest and a sky full of clouds. The foreground shows a calm river, with clear reflections on its surface."
+         data-rating="SUMMARY: Excellent technical execution with rich colors, but the composition is slightly weaker due to the lack of distinct leading lines."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_100720011.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_101836682.MP.webp"
+         data-desc="The image captures a tranquil forest scene at sunset, with a path leading into the woods. The sun&#39;s rays filter through the trees, casting long shadows and painting the landscape with warm hues."
+         data-rating="SUMMARY: The photo exhibits strong compositional elements and beautiful color work, but the lighting could be better utilized to avoid some loss of detail in the highlights."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_101836682.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_101925060.MP.webp"
+         data-desc="This image captures a serene lakeside at sunset with a tranquil view of the water reflecting the warm colors of the sky. The scene is framed by bare trees and a soft mist rising from the water, creating an atmospheric mood."
+         data-rating="SUMMARY: Excellent use of light and color for emotional impact, balanced composition with effective leading lines, but technical execution could be improved with sharper focus on the foreground elements."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_101925060.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_101944746.MP.webp"
+         data-desc="A serene sunset at a lake with gentle mist rising from its surface. The photo captures a reflection of trees in the water beneath a hazy sky."
+         data-rating="SUMMARY: Strong composition and color palette, but exposure might be improved to reduce overexposure in clouds."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_101944746.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_101951054.MP.webp"
+         data-desc="This image depicts a serene landscape scene at sunrise or sunset, featuring a calm lake with reflections under a cloudy sky, with mountains in the distance. The lighting is soft and diffused, creating a peaceful and tranquil mood."
+         data-rating="SUMMARY: A well-executed photo with strong storytelling and visual weight. There&#39;s room for improvement in the technical execution, particularly focus and dynamic range."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_101951054.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_101954252.MP.webp"
+         data-desc="A serene sunset casts a warm glow on a lake, as the sky above is painted with vibrant hues. The calm water reflects the colors of the sky, creating a mirror-like effect."
+         data-rating="SUMMARY: Strong technical execution and aesthetically pleasing, but could benefit from a clearer focal point in the composition."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_101954252.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_101959515.MP.webp"
+         data-desc="A serene lakeside scene at sunset, with reflections on the water creating a dreamy atmosphere. The composition utilizes foreground interest with trees and leading lines to draw attention toward the center."
+         data-rating="SUMMARY: Strong storytelling and visual weight, but technical execution could be improved upon with sharper focus and better exposure management."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_101959515.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102005027.MP.webp"
+         data-desc="This is a serene landscape photo featuring a lake at sunset or sunrise with low clouds, reflections on the water&#39;s surface, and a rainbow effect in the sky. The image is captured in natural light."
+         data-rating="SUMMARY: Stunning color palette and lighting create an evocative mood; however, depth of field could be better managed to enhance the 3D feel."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102005027.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102008607.MP.webp"
+         data-desc="A serene lake scene at sunrise, featuring a foggy landscape, a reflection on the water, and a small ripple in the foreground. The image is taken from the shoreline, looking out over the water towards a lush forest."
+         data-rating="SUMMARY: The image showcases impressive technical execution, with excellent color and light. However, it lacks strong compositional elements that could elevate its score further."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102008607.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102012474.MP.webp"
+         data-desc="A serene image of a mountain lake at sunset. The scene features a mirror-like water surface reflecting the sky&#39;s hues, with fog softly drifting over the lake. In the foreground, the tranquility of the water meets the forested shoreline."
+         data-rating="SUMMARY: Excellent use of color and lighting, but the composition could be improved for better balance and to eliminate distractions at the edges."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102012474.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102016460.MP.webp"
+         data-desc="The image captures a serene lake scene at sunrise, viewed from a dock. The tranquil water reflects the misty sky above, creating a peaceful atmosphere with gentle colors and soft lighting."
+         data-rating="SUMMARY: This image showcases a harmonious blend of technical execution and emotional impact, with an emphasis on color and light that brings out the natural beauty of the scene. However, it lacks in depth and composition, with the subject placement not fully engaging or guiding the viewer&#39;s eye."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102016460.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102025602.MP-EFFECTS.webp"
+         data-desc="This image captures a serene scene of a sunrise or sunset over a lake with clouds and a reflection. The colors are warm, with a prominent cloud in the sky providing texture and interest."
+         data-rating="SUMMARY: Strong emotional impact and color gradation, but technical aspects like focus and composition could be improved."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102025602.MP-EFFECTS.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102025602.MP.webp"
+         data-desc="Sunset at a lake reflects on its surface, creating beautiful colors and reflections. A bird can be seen in the sky above the lake. The image is taken from across the water, looking towards the sun."
+         data-rating="SUMMARY: This image captures an atmospheric scene with vibrant colors, but it could benefit from a better composition to remove distractions and create more depth."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102025602.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102038025.MP.webp"
+         data-desc="The image depicts a serene sunset over a calm lake, with mist rising off the water&#39;s surface. The scene is framed by a forested shoreline and is captured from the edge of a dock, looking towards the horizon where the sun is setting."
+         data-rating="SUMMARY: This photo showcases beautiful natural light and a peaceful atmosphere but lacks some compositional balance with an awkward horizon line."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102038025.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102241651.MP-PANO.webp"
+         data-desc="This image features a serene lake surrounded by lush forests and a clear sky, captured from a distant perspective. The photo has a calm and peaceful atmosphere, with subtle gradients in the clouds reflecting on the water&#39;s surface."
+         data-rating="SUMMARY: A lovely landscape shot, with excellent use of depth and color; however, the composition could be improved to reduce distractions along the edges of the image."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102241651.MP-PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102241651.MP.webp"
+         data-desc="This image captures a serene forest landscape scene at dawn or dusk. The fog gives the water a reflective quality, creating a beautiful mirror effect. There is one bird visible in the sky."
+         data-rating="SUMMARY: The image has excellent technical execution with sharp focus and balanced exposure. However, it could benefit from more deliberate framing to avoid distracting elements at the edges and could use stronger leading lines to guide the viewer&#39;s eye."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102241651.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102250297.MP.webp"
+         data-desc="A serene morning at a lake, featuring a tranquil forest scene captured with a long exposure technique. The image shows a misty landscape with reflections on the water surface."
+         data-rating="SUMMARY: This photograph has excellent technical execution, showcasing a strong depth of field and a harmonious color palette. While the composition could benefit from a more balanced perspective, the overall aesthetic impact is captivating."
+         data-score="8">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102250297.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102259558.MP.webp"
+         data-desc="A serene lake scene at dawn or dusk, surrounded by coniferous trees under a clear sky. The tranquility of nature is captured with reflective water and soft lighting."
+         data-rating="SUMMARY: Good technical execution with an evocative mood but could benefit from stronger composition and more dynamic lighting to enhance the visual weight."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102259558.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_102306654.MP.webp"
+         data-desc="A tranquil woodland scene featuring a serene lake reflecting the surrounding evergreens on a cloudy day. The image has a naturalistic aesthetic with a focus on the mist in the foreground."
+         data-rating="SUMMARY: Excellent use of lighting and color, but composition could benefit from better framing to eliminate distracting elements and improve depth of field."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_102306654.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_105758890.MP.webp"
+         data-desc="This image captures a serene forest scene at dusk. The focal point is a tranquil pond reflecting the sky. Light filters through the trees and mist, creating a moody atmosphere."
+         data-rating="SUMMARY: Aesthetic appeal with strong emotional resonance, but slightly flat lighting detracts from technical execution."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_105758890.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_134942378.MP.webp"
+         data-desc="A large, vibrant painting displayed in an indoor setting, featuring an expansive landscape with trees, a river, and a sky at its center. The art style is impressionistic with a strong emphasis on color and texture."
+         data-rating="SUMMARY: Stunning use of color and light; however, the composition lacks depth and perspective, detracting from its overall impact."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_134942378.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220524_145437309.MP.webp"
+         data-desc="This image shows a large painting of a moose&#39;s head on a wall. The moose is in profile, facing to the right. The artist has used bold colors with visible brushstrokes and a dynamic interplay of light and dark tones."
+         data-rating="SUMMARY: The painting excels at showcasing color and lighting, but falls short in technical execution due to a lack of sharpness and clear focal point."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220524_145437309.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/canoe_lake/full/PXL_20220828_003416297_routed.webp"
+         data-desc="The image is an overhead map of a hiking trail, showcasing various elements such as roads, water bodies, and landmarks. It has an artistic and informative style, combining elements of navigation with the appeal of nature."
+         data-rating="SUMMARY: Strong technical execution, but composition could benefit from a more cohesive color palette and framing to enhance storytelling."
+         data-score="7">
+        <img src="../assets/canoe_lake/thumbnails/PXL_20220828_003416297_routed.webp" alt="Photo">
+    </div>
+    
+</div>
+
+    </main>
+    <div id="modal">
+        <span class="close-btn">&times;</span>
+        <img id="modal-img" src="" alt="Full Resolution">
+        <div id="modal-info">
+            <p id="modal-desc"></p>
+            <p id="modal-meta"></p>
+        </div>
+    </div>
+    <script>
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalMeta = document.getElementById('modal-meta');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Delegated click listener — reads data-* attributes, never evaluates inline JS.
+        // This is immune to single/double quotes or any special characters in descriptions.
+        document.addEventListener('click', (e) => {
+            const item = e.target.closest('.photo-item');
+            if (!item) return;
+            modalImg.src = item.dataset.full;
+            modalDesc.textContent = item.dataset.desc;
+            modalMeta.textContent = `Rating: ${item.dataset.rating} | Score: ${item.dataset.score}/10`;
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
+    </script>
+</body>
+</html>

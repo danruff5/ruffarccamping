@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mississagi Camping - Camping Photo Gallery</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+        }
+        h1 { margin: 0; font-weight: 800; letter-spacing: -0.025em; }
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card:hover { transform: translateY(-4px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .card-content { padding: 1.5rem; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 0.5rem 0; }
+        .card-meta { font-size: 0.875rem; color: #94a3b8; }
+        
+        /* Modal Styles */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #modal img { max-width: 90%; max-height: 80%; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        #modal-info { margin-top: 1.5rem; text-align: center; max-width: 800px; padding: 0 2rem; }
+        #modal-desc { font-size: 1.125rem; line-height: 1.6; margin-bottom: 1rem; }
+        #modal-meta { color: var(--accent-color); font-weight: 600; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: white; }
+
+        
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+.photo-item {
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Camping Photo Gallery</a></h1>
+    </header>
+    <main>
+        
+<div style="margin-bottom: 2rem;">
+    <a href="../index.html" style="color: var(--accent-color); text-decoration: none;">&larr; Back to Albums</a>
+    <h2 style="margin-top: 1rem; font-size: 2rem;">Mississagi Camping</h2>
+</div>
+
+<div class="photo-grid">
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/cover.webp"
+         data-desc="A breathtaking landscape showcasing a tranquil lake nestled within a rugged cliff environment under a clear sky. The image has a naturalistic aesthetic with vibrant colors and high contrast."
+         data-rating="SUMMARY: Excellent color and light, but the composition lacks balance and could benefit from some refinement to eliminate visual distractions."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/cover.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_171615732.PANO.webp"
+         data-desc="The image shows a tranquil lake scene with a scenic view of an island in the middle of a calm body of water. A blue sky forms the background, and there&#39;s a small building or structure near the water&#39;s edge."
+         data-rating="SUMMARY: The photo has strong composition with good framing but could benefit from better lighting."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_171615732.PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_171629253.MP.webp"
+         data-desc="This image captures a serene scene of a tranquil lake viewed from an elevated perspective with reflections on its surface. The image has a naturalistic style with a focus on the water, which may be the subject of interest for some viewers."
+         data-rating="SUMMARY: Strong technical execution and solid color and lighting contribute to the image&#39;s quality; however, there is room for improvement in composition, as it lacks depth and perspective."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_171629253.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_172102317.MP.webp"
+         data-desc="A wooden sculpture of a lumberjack stands in front of a body of water on a sunny day. The scene is composed with natural lighting that casts shadows and highlights, creating texture and depth."
+         data-rating="SUMMARY: Excellent lighting quality contributes to the dynamic visual weight of the subject; however, the shallow foreground lacks depth and can be more engaging if it had more context or a clearer focal point."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_172102317.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_172109409.MP.webp"
+         data-desc="A stone memorial in an outdoor setting, with metal plaques featuring engraved text on their surfaces. The perspective is from a low angle looking up towards the memorials."
+         data-rating="SUMMARY: The image captures an interesting perspective and has good technical execution, but the composition could be improved for stronger storytelling."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_172109409.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_172439065.MP.webp"
+         data-desc="A statue of a man in front of a stone wall is captured from a low angle, with the subject positioned on the bottom right quadrant of the image. The focus and composition guide the viewer&#39;s eye towards the statue, creating a sense of depth and perspective."
+         data-rating="SUMMARY: Excellent technical execution with a strong aesthetic impact. However, the low angle perspective could have been more effective for storytelling by providing a broader context."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_172439065.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_172446834.MP.webp"
+         data-desc="This image showcases a memorial wall made of black plaques, each with text, set against a sunny sky. The angle of the shot is slightly upward, and the sun shines directly on some plaques, creating strong contrasts between light and shadow."
+         data-rating="SUMMARY: The image has a powerful emotional impact due to its subject matter and lighting conditions. However, the composition could be improved by better framing to avoid cropping off text at the edges of the plaques."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_172446834.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_172600488.MP.webp"
+         data-desc="A vibrant cluster of yellow flowers against the backdrop of a lush green forest with dappled sunlight filtering through the leaves."
+         data-rating="SUMMARY: Strong technical execution and captivating composition, but could benefit from a bit more depth perception."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_172600488.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_173228549.MP.webp"
+         data-desc="A reflection in water creates an intriguing, symmetrical view of the sky and plants from a low angle. The image is processed with an artistic flair, using vertical lines and reflections to create a visual illusion."
+         data-rating="SUMMARY: Striking composition and innovative use of symmetry; however, clarity could be improved to enhance the surreal effect."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_173228549.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_173524379.MP.webp"
+         data-desc="The image captures an outdoor scene featuring a sign in French text. In the foreground, there is a person&#39;s feet and an array of flowers, with a natural background that includes a small body of water."
+         data-rating="SUMMARY: This image is well-executed with good technical quality. It scores high on composition due to its use of framing and depth, as well as the interesting focal length choice which creates a layered perspective. However, there is room for improvement in the lighting, where the shadows are a bit harsh and there&#39;s no strong emotional impact or storytelling element."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_173524379.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_173916631.MP.webp"
+         data-desc="A close-up of tree bark showing the intricate details and patterns within it. The image has a naturalistic style with an emphasis on texture and form."
+         data-rating="SUMMARY: Strong technical execution with excellent focus and composition, though the lighting could be improved to provide more depth and contrast."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_173916631.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_174036642.MP.webp"
+         data-desc="A wildlife camera captures a curious creature peeking into a cave-like setting, surrounded by overgrown vegetation, creating an eerie atmosphere."
+         data-rating="SUMMARY: Strong on aesthetic and emotional impact with a clear narrative, yet technical execution could be improved by addressing motion blur, focus, and composition."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_174036642.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_174136558.MP.webp"
+         data-desc="This image captures the intricate details of the bark on an old tree stump, highlighting its texture and patterns. The photo is taken from a low angle looking up towards the sky, emphasizing the grandeur of nature."
+         data-rating="SUMMARY: A technical masterpiece with incredible detail and depth, though the composition could be improved by removing any distracting elements at the edges and ensuring that the Rule of Thirds are utilized more effectively."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_174136558.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_174536716.MP.webp"
+         data-desc="A photograph of a small forested area featuring mushrooms on a tree trunk next to a mossy pine tree, with a focus on the mushrooms in the foreground and a clear background. The image has a naturalistic style with a shallow depth of field."
+         data-rating="SUMMARY: Good technical execution and composition, but could benefit from more depth and scale in the background to create a stronger sense of three-dimensionality."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_174536716.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_174827928.MP.webp"
+         data-desc="An overgrown marsh with vibrant green vegetation is captured from an elevated perspective, casting a shadow on the water below. The image features a shallow depth of field and a natural, subdued color palette."
+         data-rating="SUMMARY: Strong composition and color theory, but the lack of sharpness detracts from overall impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_174827928.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_175327445.MP.webp"
+         data-desc="A close-up view of an outdoor scene featuring a plant with blueberries and green leaves, surrounded by a forest floor and natural lighting."
+         data-rating="SUMMARY: Excellent composition and color balance, with technical execution that could benefit from sharper focus."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_175327445.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_175504923.MP.webp"
+         data-desc="The image features a close-up of a rock wall with a mossy texture, partially covered by overgrowth on a sunny day. There&#39;s a person visible in the background, but the focus is on the wall itself."
+         data-rating="SUMMARY: Strong technical execution and aesthetic appeal, with a clear composition, but there&#39;s a lack of depth and no significant emotional impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_175504923.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_180036970.MP.webp"
+         data-desc="This image captures a tranquil scene of a lake at dusk, with a small fishing boat gently floating on its surface. The photograph has an interesting perspective from high above, looking down upon the water and the surrounding landscape. The image is rich in colors, particularly those found in nature, and it conveys a sense of calmness and solitude."
+         data-rating="SUMMARY: The image demonstrates strong color theory and lighting quality, but its composition could benefit from a less distracting framing that adheres to the rule of thirds or symmetry. Additionally, the subject matter itself is interesting and original in its presentation, but it might not be as visually weighty as more dramatic landscapes."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_180036970.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_180039676.MP.webp"
+         data-desc="An overhead view of a serene landscape featuring a river and rocky cliffs. The image has a clear focus on the river&#39;s reflection, showcasing the surrounding greenery and forest in the background."
+         data-rating="SUMMARY: Striking composition with an interesting depth of field, but the overly cool color palette lacks warmth and might be more impactful with a balanced contrast."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_180039676.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_181319975.MP.webp"
+         data-desc="A surreal image captures a kayak floating in a river under an overcast sky, with the reflection of a tree on the water&#39;s surface adding to the dreamlike quality. The photo is taken from a high vantage point looking down at the scene, which adds to its otherworldly atmosphere."
+         data-rating="SUMMARY: A captivating composition and surreal lighting create an engaging visual story, but the focus could be sharper for a more immersive experience."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_181319975.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_181321824.MP.webp"
+         data-desc="This image captures an expansive view of a lake with a rocky shore, where the photographer has tilted the camera angle to emphasize depth and create an interesting perspective. The photo is taken during daylight hours, as indicated by the natural light on the subject."
+         data-rating="SUMMARY: The image showcases strong technical execution with good composition, lighting, and color. However, there&#39;s room for improvement in terms of the rule of thirds placement and potential distractions at the edges of the frame."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_181321824.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_181531842.MP-EFFECTS.webp"
+         data-desc="This image captures a serene landscape featuring a river with calm waters in the foreground, flanked by rocky cliffs on both sides, under a clear blue sky. The perspective is from a high vantage point overlooking the scene, providing a sweeping view of the area below."
+         data-rating="SUMMARY: A strong visual narrative through composition and color, with focus and exposure issues detracting from an otherwise impactful image."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_181531842.MP-EFFECTS.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_181531842.MP.webp"
+         data-desc="A tranquil lake surrounded by trees, viewed from a high vantage point. The image has an interesting perspective shift in which the foreground rocks lead to the distant water, creating a sense of depth and scale."
+         data-rating="SUMMARY: Excellent use of light and shadows, though the focus and sharpness could be improved to ensure the viewer&#39;s eye is drawn naturally throughout the frame."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_181531842.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_181534591.MP.webp"
+         data-desc="An upside-down image captures a stunning natural landscape, with the water surface forming an inverted mirror effect. It showcases the contrast between the rocky shore and the serene lake, inviting viewers to appreciate the beauty of the scene from a different perspective."
+         data-rating="SUMMARY: Strong artistic concept and execution; however, the upside-down nature of the photo may be disorienting for some viewers."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_181534591.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_181617204.MP.webp"
+         data-desc="This image depicts a unique perspective on nature, taken from a low angle looking up towards the sky. It features a patch of grass in the foreground with a rocky hillside and trees in the background. The watermark suggests it&#39;s an infrared photo."
+         data-rating="SUMMARY: The image demonstrates good technical execution with crisp focus on the foreground, balanced exposure, and no noticeable artifacts or noise. It also has a strong composition with a leading line from the grass to the sky, creating depth and scale. However, it lacks emotional impact and storytelling as it does not seem to convey a clear narrative or mood, nor is it particularly original or visually weighty."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_181617204.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_183332221.MP.webp"
+         data-desc="A forest scene featuring an expansive landscape with trees and rocks in the foreground and a clearing with mountains in the background. The photo is taken from a high vantage point, capturing both natural elements and human impact on the environment."
+         data-rating="SUMMARY: Strong visual weight due to composition and depth, though technical execution could be improved by sharpening and reducing motion blur."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_183332221.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_190330566.MP.webp"
+         data-desc="This image captures an ant on a rocky surface, with the surrounding area in focus to give depth and context. It is a close-up shot with natural lighting that accentuates the textures of the environment. The composition shows the rule of thirds applied effectively, utilizing both the foreground and background to create a sense of scale."
+         data-rating="SUMMARY: The image excels in technical execution and aesthetic impact, while the color and light are solid but lack originality."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_190330566.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_190333682.MP.webp"
+         data-desc="A single bee rests on rocks in a natural setting, captured with a shallow depth of field, emphasizing the insect. The lighting is soft and natural, enhancing the texture of the surrounding environment."
+         data-rating="SUMMARY: Excellent focus and lighting; however, the composition might benefit from better framing and elimination of distracting elements."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_190333682.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_190336283.MP.webp"
+         data-desc="A bee on a rock in a natural outdoor setting. The photo captures the bee with shallow depth of field, emphasizing its position in the scene."
+         data-rating="SUMMARY: The image effectively uses shallow depth of field to create a sense of scale and focus, but it could benefit from better composition by removing distracting elements at the edges."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_190336283.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191426511.MP.webp"
+         data-desc="A dense thicket of vibrant wildflowers stands in contrast to a green fern plant on the ground. The image captures the essence of nature with its rich colors and textures."
+         data-rating="SUMMARY: Strong composition and visual weight, with a slightly overexposed subject."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191426511.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191432473.MP.webp"
+         data-desc="A vibrant wildflower bush in full bloom, with red flowers peeking through lush green foliage, set against a soft-focus background of rocks and moss. The image is taken during the golden hour with warm tones."
+         data-rating="SUMMARY: Superb color contrast between the red flowers and the greenery creates strong visual interest, but the focus on the red flowers is slightly soft which detracts from their impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191432473.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191649839.MP.webp"
+         data-desc="A serene lake scene captured at sunset, featuring a small bird in flight over a tree-lined shore. The image has a calm, naturalistic style with vibrant colors and clear reflections on the water&#39;s surface."
+         data-rating="SUMMARY: Excellent color palette and composition, but the subject may be underwhelming for viewers not invested in nature photography."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191649839.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191653365.MP.webp"
+         data-desc="A reflection of a duck swimming on a calm river with trees and water lilies in the foreground under an overcast sky. The image has a natural, serene atmosphere with a subtle color palette."
+         data-rating="SUMMARY: A peaceful, almost painterly scene marred by a lack of visual weight due to the small size of the duck in relation to its reflection."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191653365.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191654991.MP.webp"
+         data-desc="This image captures a serene lakeside scene from an overhead perspective. A small bird glides gracefully over the water as a boat sails on the river below, creating a sense of tranquility and freedom. The image is shot with a telephoto lens which enhances depth and scale."
+         data-rating="SUMMARY: This image excels in technical execution and composition. While there&#39;s no significant issue that detracts from the overall quality, it lacks a strong aesthetic or emotional impact."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191654991.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191837079.MP.webp"
+         data-desc="This image captures a beautiful landscape scene featuring a tranquil lake bordered by hills or mountains with lush greenery. The perspective of the shot is distorted, creating an interesting, slightly dizzying effect that makes you feel like you&#39;re looking up at the skyline from below. The colors are vibrant, and there&#39;s a gentle reflection on the water surface."
+         data-rating="SUMMARY: A creative composition with strong colors and an intriguing perspective is marred by the distortion, which detracts from the overall impact of the scene."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191837079.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191840453.MP.webp"
+         data-desc="A reflection of a skyline in water from an elevated vantage point creates a harmonious balance between the land and water elements. The image has a calming and serene quality with natural colors and lighting."
+         data-rating="SUMMARY: This image demonstrates excellent composition, color theory, and light quality while effectively telling a story of tranquility. There is room for improvement in technical execution due to slight motion blur and lack of sharpening."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191840453.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_191909426.PANO.webp"
+         data-desc="A tranquil landscape scene featuring a calm lake under a blue sky, captured in the golden hour with soft focus on the water&#39;s reflection, leading lines from the foreground to the lake and distant shore."
+         data-rating="SUMMARY: Stunning natural lighting and strong emotional impact, somewhat let down by the lack of sharpness in the subject matter."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_191909426.PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_192239471.MP.webp"
+         data-desc="This is an image of a single yellow daisy in focus against a blurred grassy field. The background is out of focus with hints of green and blue, suggesting an outdoor setting with natural lighting."
+         data-rating="SUMMARY: The photo is well-executed with strong technical execution and visual impact. It has a pleasant aesthetic with a clear focal point. However, the composition could benefit from more depth in the background to add context and interest."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_192239471.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210818_193504535.MP.webp"
+         data-desc="In this image, there is a person standing on a brick walkway near a waterfront. The person is posing in front of a statue, which resembles a soldier. The sky is blue and clear, suggesting it&#39;s a sunny day."
+         data-rating="SUMMARY: Strong composition with good technical execution, but the image could benefit from more depth and contrast to enhance its emotional impact."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210818_193504535.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_001050727.MP.webp"
+         data-desc="A camping scene captured from an unusual angle, where the photographer is not in focus, adding a unique perspective to a common outdoor activity. The composition leads the viewer&#39;s eye across the image, and the warm glow of the campfire highlights the wooded setting."
+         data-rating="SUMMARY: An innovative framing choice that adds originality; however, depth and scale could be enhanced for better visual weight."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_001050727.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_001052871.MP.webp"
+         data-desc="This image captures an outdoor scene where two individuals are enjoying a warm beverage at a picnic table. The photo has a candid, naturalistic style with warm tones and a shallow depth of field that blurs the background. There is a playful, slightly distorted perspective which adds to the informal, intimate feel of the image."
+         data-rating="SUMMARY: This image demonstrates strong storytelling and emotional impact due to the warmth of the light and the candid moment between the two individuals. However, there are some technical issues with exposure and dynamic range that could benefit from adjustments."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_001052871.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_001055181.MP.webp"
+         data-desc="A man and woman share a meal at a camping site as the sun sets, with a wide-angle lens capturing the intimate moment and the surrounding nature."
+         data-rating="SUMMARY: The image conveys a warm, inviting atmosphere but could benefit from adjustments in depth of field to isolate the subjects more effectively."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_001055181.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_001202184.MP.webp"
+         data-desc="An outdoor family enjoying a campfire and picnic on a wooden bench in a forested area with warm and inviting colors. The image captures the tranquil ambiance of nature and the intimate moment shared by the family."
+         data-rating="SUMMARY: This image has a strong emotional impact and showcases good technical execution, but it could benefit from better framing and composition to improve its visual weight."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_001202184.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_104834501.MP.webp"
+         data-desc="An image capturing a serene scene of a reflection on water at dusk. The photo is rendered in an anamorphic style with a fisheye lens effect, creating an immersive and unique perspective."
+         data-rating="SUMMARY: The image showcases impressive color grading, composition, and visual weight, but could benefit from better geometric alignment to enhance the reflection&#39;s clarity."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_104834501.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_104839387.MP.webp"
+         data-desc="This image shows a serene landscape scene of a calm body of water reflecting a skyline at what appears to be either sunrise or sunset. The reflection is distorted, creating an interesting and somewhat abstract effect in the foreground."
+         data-rating="SUMMARY: The image has strong visual weight due to its color palette and composition, but it could benefit from sharper focus and improved framing for a more impactful composition."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_104839387.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_110045498.MP.webp"
+         data-desc="This image captures a serene lake scene at sunset. The photo is taken with a fisheye lens, creating an immersive view of the water and surrounding landscape."
+         data-rating="SUMMARY: A strong sense of atmosphere and natural beauty is evident. However, the image could benefit from more deliberate composition choices to create a clear focal point."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_110045498.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_111942889.MP.webp"
+         data-desc="In the image, we see an outdoor scene featuring two people enjoying a picnic in what appears to be a camping setting. The photo has a casual, candid feel and captures a moment of leisure in nature."
+         data-rating="SUMMARY: The image conveys a sense of tranquility and connection with the outdoors. The main strength is the natural lighting that creates a pleasant atmosphere and highlights the subjects&#39; details. However, the composition could benefit from better framing and depth of field to minimize distractions at the edges of the frame."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_111942889.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_115233015.MP.webp"
+         data-desc="An aerial view of a body of water capturing a serene landscape during what appears to be either dawn or dusk. The sky&#39;s soft lighting and warm tones are complemented by the tranquil water below, with an island or landmass visible in the distance."
+         data-rating="SUMMARY: A harmonious blend of technical execution, composition, color &amp; lighting, and aesthetic appeal. While there is nothing obviously wrong or out of place, it could benefit from a stronger subject or a more dramatic angle for additional visual weight."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_115233015.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_115234462.MP.webp"
+         data-desc="This image depicts an expansive body of water with ripples on its surface, possibly a lake or river. The foreground shows still waters, while the background displays choppier waves, suggesting different water depths and movement. There are no texts present in the image."
+         data-rating="SUMMARY: The image is visually striking due to its high-quality focus and contrast. However, the exposure and composition could be improved to create a more cohesive and engaging scene."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_115234462.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_115237177.MP.webp"
+         data-desc="This image showcases a tranquil lake scene at sunrise or sunset, with the mirror-like surface of the water reflecting a calm, cloudy sky. The camera is positioned near the horizon line, capturing both the reflection and the actual sky in a symmetrical arrangement."
+         data-rating="SUMMARY: The image demonstrates excellent technical execution, with sharp focus on the water&#39;s reflection and good dynamic range. However, it lacks in composition, as the framing seems unbalanced with distracting elements at the edges, detracting from the overall impact of the scene."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_115237177.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_140625589.MP.webp"
+         data-desc="A serene forest scene at dusk, featuring tall trees lining a lake. The photo is taken from a low angle looking up towards the sky, creating a sense of grandeur and natural beauty."
+         data-rating="SUMMARY: This image showcases a harmonious blend of technical execution, composition, color &amp; lighting, and emotional impact. While the focus appears slightly softer than expected for such an expansive landscape, it adds to the dreamlike quality of the scene. The perspective is also quite high, which may distract from the main subject but is artistically appropriate for this particular setting."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_140625589.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_140628114.MP.webp"
+         data-desc="A bird perched in the middle of a tall pine tree, captured from below with motion blur, emphasizing its silhouette against the clear sky. The image has a serene and somewhat abstract quality due to the combination of sharpness and soft edges."
+         data-rating="SUMMARY: Technically sound with an evocative mood, though the bird is somewhat obscured by motion blur."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_140628114.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_140629512.MP.webp"
+         data-desc="This image captures a serene forest scene with a clear blue sky and a large tree in the foreground. The perspective is slightly distorted due to a polarizing lens effect, creating an interesting visual dynamic."
+         data-rating="SUMMARY: The composition and color are very strong, but there&#39;s a lack of visual weight in the subject matter."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_140629512.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_140630728.MP.webp"
+         data-desc="A small bird sits on a pine branch atop a mountain, in the midst of nature. The image is captured with a telephoto lens, focusing on the bird and its immediate surroundings. It has a serene atmosphere with a natural color palette."
+         data-rating="SUMMARY: Excellent natural light and subject placement, but the composition could benefit from better framing to minimize distractions in the background."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_140630728.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_140632104.MP.webp"
+         data-desc="A scenic view of a forested landscape with a focus on an old, gnarled tree surrounded by greenery and rocks. The image is captured from a slightly elevated angle, presenting a wide, expansive panorama."
+         data-rating="SUMMARY: Strong composition and excellent lighting, but the focus could be sharper and more intentional."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_140632104.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_140633479.MP.webp"
+         data-desc="The image depicts a wooded area, featuring a small animal, possibly a chipmunk or squirrel, climbing on some rocks with a forest in the background. The perspective is a wide-angle shot, capturing both the ground and sky elements of the scene."
+         data-rating="SUMMARY: A well-executed technical image that showcases a moment in nature with a strong focal point, but lacks depth and emotional impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_140633479.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_144047131.MP.webp"
+         data-desc="In this image, a black dog is laying on its side in a muddy area with a tree stump nearby. The photo appears to be taken from a high angle, capturing the dog&#39;s relaxed posture amidst a natural setting."
+         data-rating="SUMMARY: Strong composition and lighting, but lacks originality and emotional impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_144047131.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_173554718.MP.webp"
+         data-desc="A surreal perspective image taken at a beach where the reflections of people in the water create an unusual visual effect. The focus is sharp on the foreground with noticeable softness towards the background."
+         data-rating="SUMMARY: Strong visual impact and originality, slightly compromised by less-than-optimal technical execution."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_173554718.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_174045690.MP.webp"
+         data-desc="This image captures a group of people on a beach at sunset. The camera is tilted in a dramatic fashion, with the foreground slightly blurred and people standing in the water and on the shoreline. The sky has a golden hour glow, and there&#39;s a long exposure effect on the reflections of light on the water."
+         data-rating="SUMMARY: A strong visual impact from the unique composition and lighting, but the tilted camera might have been better corrected or used more deliberately to enhance the storytelling."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_174045690.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_174915389.MP.webp"
+         data-desc="An image capturing a serene moment at a beach where a family is enjoying a day out. The setting sun casts long shadows on the sandy shore while a calm lake provides a tranquil backdrop. The focus and composition emphasize the subjects, creating depth in the scene."
+         data-rating="SUMMARY: A solid image with strong composition and color, marred by some overexposure issues that detract from the overall impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_174915389.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_190721286.MP.webp"
+         data-desc="A telephoto shot of a cell tower against a clear blue sky on a sunny day, with a house in the background, taken from a street-level perspective. The image is slightly overexposed and lacks depth."
+         data-rating="SUMMARY: Excellent technical execution, but the composition could use more depth and better framing to create a stronger visual narrative."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_190721286.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_190725664.MP.webp"
+         data-desc="A tranquil scene of a rural highway intersection on a sunny day, with an emphasis on the blue sky and trees in the background. The image has a panoramic view capturing the road, a single car, and utility poles."
+         data-rating="SUMMARY: Good technical execution with natural lighting, but could benefit from improved composition and potentially a more dramatic angle to increase visual weight."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_190725664.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_190911630.MP.webp"
+         data-desc="A close-up of colorful rocks with a vibrant red-orange bug resting on top, providing a sense of stillness and life in nature. The image has a clear focus with soft background blur, creating a shallow depth of field effect."
+         data-rating="SUMMARY: Strong technical execution with sharp focus and good composition; however, the subject lacks visual weight due to its small size."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_190911630.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_190914328.MP.webp"
+         data-desc="This image captures a natural landscape scene with a small, colorful slug as the subject, resting amidst rocks and pebbles on a gravel road."
+         data-rating="SUMMARY: The image is technically sound but lacks a strong narrative or emotional connection."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_190914328.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191016290.PANO.webp"
+         data-desc="An overhead view of a serene lake scene, with a clear blue sky and lush green trees in the foreground. The image has a vibrant, panoramic quality with a high dynamic range."
+         data-rating="SUMMARY: A stunning representation of nature&#39;s beauty, with excellent color balance and composition; however, the focus could be improved to enhance depth and clarity."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191016290.PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191101130.MP.webp"
+         data-desc="The image captures an aerial view of a serene river scene at either sunrise or sunset, with a reflection forming a mirror-like surface that blends nature and architecture. The photo is taken from a high vantage point, possibly a bridge, showcasing the surrounding greenery and cloudy sky."
+         data-rating="SUMMARY: The image has excellent technical execution with sharp focus, exposure, and composition. It also features strong color theory and lighting quality. However, there&#39;s room for improvement in the visual weight of the subject, as it doesn&#39;t immediately capture attention or convey a clear narrative."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191101130.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191105650.MP.webp"
+         data-desc="An inverted aerial photo of a lake, taken from a high vantage point. The image captures the intricate interplay between nature and architecture."
+         data-rating="SUMMARY: Exceptional color palette and depth perception; however, a lack of intentional motion blur detracts from its artistic appeal."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191105650.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191117793.MP.webp"
+         data-desc="A unique upside-down perspective of a serene picnic area by the water, viewed from an overhead angle. The image features a red bench under a gazebo, with a grassy field and trees in the background. It is taken with a fisheye lens, creating a distorted yet captivating visual effect."
+         data-rating="SUMMARY: Stunning composition and color, but slightly lacks in technical execution due to the fish-eye perspective&#39;s distortion."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191117793.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191330170.MP.webp"
+         data-desc="The image captures an outdoor scene featuring a stone placard inscribed with text, sitting prominently atop a large rock boulder. The background is out of focus and shows a hint of greenery, suggesting the photo was taken during daylight under natural light conditions."
+         data-rating="SUMMARY: Strong composition and color, but the image could benefit from more dynamic lighting to enhance depth and shadow."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191330170.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191400000.MP.webp"
+         data-desc="This image shows an outdoor scene featuring a signpost along a roadside. There are signs of wildlife, like a birdhouse and a deer warning sign. The setting is near water, with a bridge visible in the distance."
+         data-rating="SUMMARY: The image has good technical execution with crisp focus and exposure, but composition could be improved by better framing and perspective to reduce distractions from the background."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191400000.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191435966.MP.webp"
+         data-desc="This image captures an overhead view of a dense forest with a unique perspective that emphasizes a small clearing in the center. The photo is taken from a high angle with a low horizon line, creating a striking juxtaposition between the lush greenery and the clear blue sky."
+         data-rating="SUMMARY: A creative perspective and a harmonious color palette make this image visually appealing, but the shallow depth of field makes it difficult to discern the forest&#39;s details."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191435966.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191455860.MP.webp"
+         data-desc="A large informational sign in front of a body of water showcasing nature and human activity with text and images."
+         data-rating="SUMMARY: Strong composition and color, but focus could be improved for better clarity of text."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191455860.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191542188.MP.webp"
+         data-desc="This image captures a scenic view of a bridge with a river in the foreground, under a blue sky with no clouds. The focus is sharp on the bridge and slightly softer in the background, emphasizing depth."
+         data-rating="SUMMARY: The image has strong technical execution with good composition, color, and lighting. The most significant area for improvement could be the perspective, which might not provide the most dynamic viewpoint."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191542188.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191558576.MP.webp"
+         data-desc="A wide-angle perspective showcases a unique upside-down perspective of a serene riverbank with trees and a sidewalk in the foreground."
+         data-rating="SUMMARY: The image captures an unconventional and intriguing composition with technical skill, though it lacks depth and warmth."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191558576.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191602255.MP.webp"
+         data-desc="A river winding its way through a lush landscape under a partly cloudy sky. The photo is taken from a high vantage point, with a unique perspective that captures both the foreground and background elements in the scene."
+         data-rating="SUMMARY: The image showcases a stunning composition with a strong depth of field and effective use of color and light, but lacks a clear focal point and could benefit from some exposure adjustments to bring out more details in the shadows."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191602255.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191610619.MP.webp"
+         data-desc="This image features an upside-down perspective of a serene landscape with a river winding through it, viewed from above. The composition utilizes symmetry, and the color palette is vibrant with a naturalistic white balance."
+         data-rating="SUMMARY: Striking inversion creates a unique visual experience; however, lacks intentional focus on subject."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191610619.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_191716465.MP.webp"
+         data-desc="An overhead view of an outdoor deck area, featuring a large metal circular object on top of a support structure. The perspective is from a low angle looking up at the object, with the bench in the foreground and trees behind it."
+         data-rating="SUMMARY: The image demonstrates a strong technical execution and composition, but lacks a clear emotional impact and storytelling component."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_191716465.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_201213004.MP.webp"
+         data-desc="This image captures a serene day at a lake, featuring a dock area with boats in the distance under clear skies. The photo is taken from a low angle, emphasizing the water and the boat ramp, while also including the &#34;No Boating&#34; sign on the dock as an element of interest and information."
+         data-rating="SUMMARY: The image showcases great technical execution, particularly with its exposure and dynamic range. However, it could benefit from improved framing and composition to better direct the viewer&#39;s attention and potentially enhance the storytelling aspect."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_201213004.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_201217819.MP.webp"
+         data-desc="The image captures a serene scene of a person fishing in calm waters from a dock. The composition and lighting create a peaceful atmosphere, with a shallow depth of field adding to the depth perception."
+         data-rating="SUMMARY: A strong focus on the subject and an effective use of lighting contribute to an impactful image. The main area for improvement is the lack of foreground interest, which could have been addressed by adding more elements or adjusting the perspective."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_201217819.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_201222422.MP.webp"
+         data-desc="This is an image of a person canoeing on a body of water at dusk or dawn. The lighting is soft and diffused with blue tones, suggesting either early morning or late evening light. The perspective of the photo captures the canoeist from afar, offering a sense of space and tranquility."
+         data-rating="SUMMARY: The image showcases excellent lighting and a calming subject, but the composition could be improved by better framing and leading lines to guide the viewer&#39;s eye more effectively."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_201222422.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210819_201224540.MP.webp"
+         data-desc="This image captures a serene moment on a lake where a person is paddling in a small boat. The surrounding area is lush with greenery and dotted with structures, contributing to a peaceful, natural setting."
+         data-rating="SUMMARY: Strong storytelling and evocative light, but the composition is slightly off-center and lacks visual balance."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210819_201224540.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_013507807.NIGHT.webp"
+         data-desc="This image captures a tranquil night scene in the woods with a silhouette of trees against a sky background. The photograph is taken from a slightly elevated angle."
+         data-rating="SUMMARY: While the composition and lighting are impressive, there&#39;s a technical issue with focus that detracts from the overall impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_013507807.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_013518511.NIGHT.webp"
+         data-desc="This nighttime image captures an ethereal scene in the woods. The foreground is dark with only a few faint lights visible, while the background skyline is illuminated by distant street lamps. The trees provide silhouettes against the sky, contributing to the serene atmosphere of the forest at dusk."
+         data-rating="SUMMARY: A captivating nighttime forest scene with strong emotional impact, yet technical execution could be improved due to focus inconsistencies."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_013518511.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_013532391.NIGHT.webp"
+         data-desc="An intriguing nighttime skyline seen from a tree branch, where moonlight casts a gentle glow on the silhouettes of leafless trees against the dark sky. The image is rich in contrast and texture, with a hint of color peeking through the shadows."
+         data-rating="SUMMARY: A powerful display of contrast and light, with a well-composed foreground. The most significant area for improvement would be the focus and sharpness, which may not be entirely on the desired subject due to the shallow depth of field."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_013532391.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_013548778.MP.webp"
+         data-desc="A nighttime landscape shot from beneath a tree, showing a moonlit sky and an ominous silhouette of trees against it. The image is grayscale with selective color used to highlight certain elements."
+         data-rating="SUMMARY: Strong technical execution with a clear focus and dynamic range; the composition could benefit from more thoughtful framing and perspective control, and while there&#39;s an atmospheric mood, the visual weight of the subject could be increased for greater emotional impact."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_013548778.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_013617149.NIGHT.webp"
+         data-desc="This image captures a solitary tree silhouetted against a twilight sky, with trees in the foreground creating a natural leading line. The focus is sharp on the tree and out of focus in the background, emphasizing depth."
+         data-rating="SUMMARY: The photo is visually striking, with great technical execution and emotional impact, but could benefit from better framing and composition to improve on visual weight and originality."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_013617149.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_014919719.NIGHT.webp"
+         data-desc="A moonlit sky above silhouetted tree tops at night. The image has a peaceful, ethereal quality with a shallow depth of field."
+         data-rating="SUMMARY: Strong lighting and emotional impact, yet the focus is slightly off on the subject and the composition could be improved for better framing and visual weight."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_014919719.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_014926560.NIGHT.webp"
+         data-desc="This image captures a full moon in a night sky, with an intriguing anomaly appearing to be the moon&#39;s reflection on a water surface below. The composition is balanced and centered, using leading lines from the horizon towards the moon."
+         data-rating="SUMMARY: Excellent focus, contrasting lighting effects, and a compelling composition; however, the dynamic range could be more dramatic, and the reflection in the water is somewhat muted."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_014926560.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_014935610.MP.webp"
+         data-desc="This image captures a moment of serenity as a full moon shines brightly against a dark sky, illuminating a landscape with its silvery glow. The perspective is particularly striking, taken from a low angle which enhances the sense of grandeur and mystery."
+         data-rating="SUMMARY: The image excels in aesthetics and emotional impact due to the captivating lunar atmosphere and dramatic perspective. However, it could benefit from more attention to technical execution as seen in some minor overexposure and lack of distinct focus on the moon."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_014935610.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_014947326.NIGHT.webp"
+         data-desc="The image captures a full moon illuminating a tranquil night sky over a dark landscape, with the moon&#39;s craters casting an ethereal glow on the surrounding area."
+         data-rating="SUMMARY: Strong technical execution and aesthetic appeal marred by poor composition that could use more intentional framing and perspective."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_014947326.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_090313277.NIGHT.webp"
+         data-desc="A dramatic night sky over a dark landscape, captured in a wide-angle shot with sharp focus on the celestial bodies. The image has a minimalistic and somewhat otherworldly feel, with cool colors dominating the scene."
+         data-rating="SUMMARY: While the technical execution is impressive, the composition could benefit from better alignment and a more balanced horizon line."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_090313277.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_090329788.NIGHT.webp"
+         data-desc="The image presents a captivating night sky, filled with stars and bathed in the soft glow of ambient light. A silhouette of what appears to be a tree or plant forms an interesting focal point against the vast expanse of the cosmos."
+         data-rating="SUMMARY: The image demonstrates excellent technical execution with a balanced exposure, clear focus, and minimal noise. However, it lacks strong compositional elements and may benefit from more depth in the background to create a greater sense of space and place. The score would be higher if there was intentional composition that guides the viewer&#39;s eye or if the subject had more visual weight."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_090329788.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_091305235.NIGHT.webp"
+         data-desc="A nighttime sky filled with stars is captured from a forest clearing, bathed in a blueish hue. The scene conveys a sense of tranquility and wonder."
+         data-rating="SUMMARY: Exceptional star photography, but the exposure is slightly flat, leaving areas without clear highlights or shadows."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_091305235.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_091459229.NIGHT.webp"
+         data-desc="This image is a dark and moody nightscape of an urban area with a sense of mystery and solitude. The composition features a prominent diagonal leading line into the darkness, creating a sense of depth and perspective. The color palette is monochromatic, with cool tones dominating the scene."
+         data-rating="SUMMARY: The image exhibits excellent technical execution with a strong focus on the subject and well-balanced lighting. The composition and framing are also effective in guiding the viewer&#39;s eye through the image, while the use of a limited color palette adds to the overall mood. However, the visual weight and emotional impact of the image could be further developed to convey more narrative or intrigue."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_091459229.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_091516626.NIGHT.webp"
+         data-desc="A night sky image taken from an outdoor setting with trees in the foreground leading to a dark horizon. The lighting creates a contrast between the lighter stars and the darker areas of the photo."
+         data-rating="SUMMARY: The image excels in terms of technical execution, color theory, and aesthetic appeal but lacks some composition coherence."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_091516626.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_091756037.NIGHT.webp"
+         data-desc="A nighttime sky filled with numerous stars, viewed from a location with trees in the foreground. The image has a tranquil, serene quality to it."
+         data-rating="SUMMARY: While the starry sky is beautifully captured and the light exposure is natural, the framing could benefit from being more deliberate, potentially removing distracting elements at the edges or utilizing the Rule of Thirds more effectively to create a stronger composition."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_091756037.NIGHT.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_103325017.MP.webp"
+         data-desc="A moody, atmospheric lake scene captured from a low angle, featuring a mirrored skyline reflecting a serene forested landscape. The image has an ethereal quality with a cool color palette and soft lighting."
+         data-rating="SUMMARY: Beautiful use of color and light creates a mystical atmosphere, yet the focus could be sharper in the critical areas."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_103325017.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_103330864.MP.webp"
+         data-desc="This image presents a unique perspective from above, capturing the contrast between the calm water of a lake or pond below and the reflective surface of what seems to be an overcast sky. The composition is dominated by muted colors with a strong focus on the reflections in the water&#39;s surface."
+         data-rating="SUMMARY: The image demonstrates technical execution with good exposure, depth, and color palette. However, it lacks a compelling narrative or emotional impact and could benefit from a clearer storytelling aspect to enhance its visual weight and originality."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_103330864.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_110241188.MP.webp"
+         data-desc="An overhead view of a forest, showcasing the canopy through an opening in the trees with a clear blue sky in the background. The image has a naturalistic style with elements of wildlife visible."
+         data-rating="SUMMARY: Strong composition and color palette, but technical execution could be improved for sharper focus on the subject matter."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_110241188.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_111629537.MP.webp"
+         data-desc="A reflective surface captures a tranquil forest scene during what appears to be either dawn or dusk. The image features a large expanse of water with a faint sun glowing on its surface, and trees can be seen in the background."
+         data-rating="SUMMARY: The composition effectively utilizes leading lines and depth of field to create an immersive forest scene. However, there is room for improvement in the clarity and sharpness, particularly in the sky and some areas of the image."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_111629537.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_130638833.MP.webp"
+         data-desc="This image captures an expansive gravel road leading towards a forest on a clear day. The foreground is slightly out of focus, drawing attention to the centerline and depth of the road, while the background reveals the lush greenery of the forest."
+         data-rating="SUMMARY: Strong composition and lighting, with technical execution and emotional impact contributing to its overall appeal; however, there&#39;s room for improvement in terms of dynamic range and noise reduction."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_130638833.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_130644166.MP.webp"
+         data-desc="A lonely road stretches out in the foreground, leading towards a serene landscape under a clear sky. The perspective of the photo creates an interesting sense of depth and distance."
+         data-rating="SUMMARY: Excellent use of perspective and a simple, yet effective composition; however, the image could benefit from a more diverse or dynamic color palette to enhance its emotional impact."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_130644166.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_135759492.MP.webp"
+         data-desc="A forested area with trees showing signs of distress, possibly due to fire. The foreground is filled with fallen branches and pine needles on the ground, providing a stark contrast to the more lush background. There is a lake in the distance, adding depth to the scene."
+         data-rating="SUMMARY: Excellent technical execution with a focus on environmental narrative, but composition could be improved for greater depth of field."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_135759492.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_135802744.MP.webp"
+         data-desc="The image captures a tranquil woodland scene, featuring a serene lake surrounded by trees and pine needles on the ground. The perspective is from an elevated angle looking down over the forest."
+         data-rating="SUMMARY: A strong sense of tranquility and depth, but the focus could be sharper to enhance the visual impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_135802744.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_140451453.MP-PANO.webp"
+         data-desc="This image showcases a scenic landscape featuring a serene body of water, surrounded by forested areas with varying levels of foliage, under a clear sky. The perspective is slightly elevated, providing a panoramic view of the environment."
+         data-rating="SUMMARY: Strong composition and color quality, but technical execution could be improved for sharper focus and more balanced lighting."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_140451453.MP-PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_140451453.MP.webp"
+         data-desc="A panoramic landscape featuring a dense forest of green trees, viewed from an elevated perspective with a focus on the middle ground. The sky above the treetops is blue and clear."
+         data-rating="SUMMARY: This image excels in its technical execution and color grading. While the composition showcases the natural beauty of the landscape, it lacks depth and a more compelling visual weight to engage viewers emotionally."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_140451453.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_140454291.MP.webp"
+         data-desc="An upside-down aerial view captures a dense forest of pine trees under a clear blue sky. The image is a creative perspective on nature."
+         data-rating="SUMMARY: High score for aesthetics and originality, with good technical execution but lower scores in composition and depth due to the lack of traditional landscape elements."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_140454291.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_140458845.MP.webp"
+         data-desc="A reflection in a water surface creates an upside-down perspective of a forested landscape under a blue sky, with trees on the foreground. The image features an interesting play on reflection and visual symmetry."
+         data-rating="SUMMARY: Strong technical execution, but composition is slightly hampered by a lack of leading lines."
+         data-score="9">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_140458845.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_141106200.MP-PANO.webp"
+         data-desc="This image shows an idyllic forest scene with a lake in the distance. The photo is taken from a high vantage point, capturing the landscape below and framed by trees at the edges. There are several trees scattered across the foreground and midground, with a clear sky in the background."
+         data-rating="SUMMARY: The image offers a serene and picturesque view of nature, with strong technical execution and pleasing aesthetics. The primary area for improvement lies in the composition, as there is little use of leading lines to guide the viewer&#39;s eye through the scene, and the foreground elements may be distracting."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_141106200.MP-PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_141110675.MP.webp"
+         data-desc="This image depicts an upside-down view of a forest scene with trees reflecting on water, likely taken from a low angle looking up at the sky. The photo has a creative and playful composition that challenges perspective."
+         data-rating="SUMMARY: An interesting and innovative take on landscape photography with an unconventional perspective, but technical execution is slightly compromised by the upside-down orientation, which may lead to a lack of sharpness."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_141110675.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_142007132.MP.webp"
+         data-desc="A hiker stands in a forested area with steep inclines, looking out over a valley. The image captures the contrast between the human subject and the natural environment, emphasizing the scale of nature."
+         data-rating="SUMMARY: Strong composition and lighting, but the focus on the subject is less sharp than it could be."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_142007132.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_143323533.MP.webp"
+         data-desc="A mushroom stands alone in an overgrown forest floor, surrounded by fallen leaves and tree branches. The image is rich in contrast, with a shallow depth of field emphasizing the fungi&#39;s unique texture."
+         data-rating="SUMMARY: Excellent technical execution, particularly in focus, lighting, and composition, but may benefit from more refined storytelling and an increased sense of scale to fully capture the viewer&#39;s imagination."
+         data-score="8">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_143323533.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_191057819.MP.webp"
+         data-desc="This image captures a metal structure with a circular window, situated in an outdoor setting on what appears to be a cloudy day. The focus is sharp on the central subject, but there is noticeable softness in the background."
+         data-rating="SUMMARY: The photograph exhibits a strong sense of depth and perspective, with a pleasing color palette. However, it could benefit from improved composition to avoid distractions at the edges and better framing for a more impactful viewpoint."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_191057819.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210820_191121603.MP.webp"
+         data-desc="This image depicts a large wooden wheel mounted on a black pole outdoors. The photograph is taken during daylight under clear skies."
+         data-rating="SUMMARY: The photo has good technical execution and composition, with an interesting visual weight; however, it could benefit from better lighting quality to provide more depth and contrast."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210820_191121603.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_002119441.MP.webp"
+         data-desc="The image captures a serene moment at sunset over a lake, viewed from a high vantage point on rocky terrain. The tranquil scene is enhanced by the reflection of the sky in the water, with a soft focus on the horizon line and surrounding rocks."
+         data-rating="SUMMARY: A well-executed image that excels in aesthetics and emotional impact, while technical execution shows room for improvement due to an accidental lack of sharpness."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_002119441.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_002123564.MP.webp"
+         data-desc="A serene lake at sunset with a reflection of the sun on the water&#39;s surface. A lone tree stands in the foreground against a cloudy sky."
+         data-rating="SUMMARY: Beautiful natural light and a peaceful atmosphere, but the composition could be improved to enhance the leading lines and remove distractions from the edges."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_002123564.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_002129246.MP.webp"
+         data-desc="This image captures a serene sunset over a body of water, with the reflection of the sky on the surface of the lake creating an almost infinite expanse. The photo is taken from the perspective of someone standing on land looking out towards the horizon where the sun is setting behind a long bridge or causeway stretching across the water."
+         data-rating="SUMMARY: This image showcases beautiful and vibrant colors, with strong contrast between the sky, water, and reflections. However, there is a noticeable lack of depth, with no clear sense of space beyond the immediate foreground."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_002129246.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_002136973.MP.webp"
+         data-desc="A serene lake at sunset is captured from a high vantage point, with a long exposure technique used to create a reflective effect on the water&#39;s surface. The image has a tranquil atmosphere with gentle color gradients and a slight distortion in perspective."
+         data-rating="SUMMARY: Striking colors and light, but the technical execution could be improved for clarity and sharpness."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_002136973.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_002219126.PANO.webp"
+         data-desc="A serene lake at sunrise or sunset, with reflections on its surface, set against a backdrop of forested hills. The image has an expansive, tranquil feel."
+         data-rating="SUMMARY: The image showcases strong technical execution and composition, but the most significant area for improvement is in the aesthetic and emotional impact category where it feels somewhat flat and lacks narrative or &#34;decisive moment&#34;."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_002219126.PANO.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_003952030.MP.webp"
+         data-desc="A young boy in a plaid shirt is seated on a picnic table, looking upwards, possibly at an adult who is not in view. The image has a casual and candid quality, capturing a moment of childhood curiosity."
+         data-rating="SUMMARY: This photo demonstrates strong subject focus and lighting, but could benefit from better composition to minimize distractions and improve the storytelling element."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_003952030.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_003953825.MP.webp"
+         data-desc="A young boy is sitting on a wooden bench in a park setting, next to a table with drinks. The image has a naturalistic, candid quality to it."
+         data-rating="SUMMARY: Strong emotional impact and composition; technical execution could use sharpening and exposure adjustments."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_003953825.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_003956067.MP.webp"
+         data-desc="In this image, we see a young boy sitting on a wooden picnic bench in a campground setting, with a plaid shirt and shorts. The photo has an autumnal color palette and appears to be taken during the daytime under natural light."
+         data-rating="SUMMARY: The image captures a candid moment of childhood, with strong composition and pleasing color theory. There is potential for improvement in the perspective and depth of field to enhance the visual weight and storytelling aspect of the photo."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_003956067.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_110453339.MP.webp"
+         data-desc="The image captures a tranquil lake at sunset, viewed from an unusual perspective. The photo is composed of four images stitched together to create a panoramic view, resulting in a unique distortion effect where the edges don&#39;t quite align perfectly."
+         data-rating="SUMMARY: A technically ambitious composition with strong emotional impact, undermined by imperfect alignment and distortion."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_110453339.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_110458639.MP-EFFECTS.webp"
+         data-desc="A sunset is captured over a tranquil lake with a wooden dock, featuring warm colors reflecting on the water. The silhouette of a tree in the foreground frames the scene and leads the eye towards the sunset."
+         data-rating="SUMMARY: Strong composition with balanced lighting, but technical execution lacks sharpness and could benefit from additional contrast to enhance visibility of elements within the frame."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_110458639.MP-EFFECTS.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_110458639.MP.webp"
+         data-desc="This image captures a serene sunset over a lake, with trees and a pier visible in the foreground. The lighting is soft with a warm tone, suggesting tranquility."
+         data-rating="SUMMARY: Strong color palette and mood, but technical issues detract from its potential impact."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_110458639.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_110510256.MP.webp"
+         data-desc="A scenic lake view with a surreal reflection of trees under a red sunset, creating a mirror image effect. The focus is soft across the entire scene, blending the colors and textures from the foreground to the background."
+         data-rating="SUMMARY: The image showcases an ethereal moment with striking color contrasts but lacks clear, sharp detail throughout the composition, particularly in the sky and reflections."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_110510256.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_110520477.MP.webp"
+         data-desc="This image captures a tranquil lake at what appears to be dusk or dawn, with an upside-down tree reflected in the water below. The perspective adds an unusual and intriguing visual element to the scene."
+         data-rating="SUMMARY: Striking composition with interesting perspective, but the subject could have been more engaging to improve visual weight."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_110520477.MP.webp" alt="Photo">
+    </div>
+    
+    <div class="photo-item"
+         data-full="../assets/mississagi_camping/full/PXL_20210821_110558242.PANO.webp"
+         data-desc="This image depicts two scenes, one at sunrise and the other at dusk, both showcasing a lake with a calm surface reflecting the sky&#39;s hues. The foreground features silhouetted trees on a shoreline, while the background reveals the vast expanse of water under a sky transitioning from golden to deep blue."
+         data-rating="SUMMARY: This image demonstrates a harmonious blend of technical execution and emotional impact, though it could benefit from a more balanced composition with less visual weight towards the edges, potentially improving framing and perspective."
+         data-score="7">
+        <img src="../assets/mississagi_camping/thumbnails/PXL_20210821_110558242.PANO.webp" alt="Photo">
+    </div>
+    
+</div>
+
+    </main>
+    <div id="modal">
+        <span class="close-btn">&times;</span>
+        <img id="modal-img" src="" alt="Full Resolution">
+        <div id="modal-info">
+            <p id="modal-desc"></p>
+            <p id="modal-meta"></p>
+        </div>
+    </div>
+    <script>
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalMeta = document.getElementById('modal-meta');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Delegated click listener — reads data-* attributes, never evaluates inline JS.
+        // This is immune to single/double quotes or any special characters in descriptions.
+        document.addEventListener('click', (e) => {
+            const item = e.target.closest('.photo-item');
+            if (!item) return;
+            modalImg.src = item.dataset.full;
+            modalDesc.textContent = item.dataset.desc;
+            modalMeta.textContent = `Rating: ${item.dataset.rating} | Score: ${item.dataset.score}/10`;
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
+    </script>
+</body>
+</html>
