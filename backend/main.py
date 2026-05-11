@@ -8,7 +8,7 @@ import sqlite3
 import os
 import requests
 from backend.ai import OLLAMA_URL, MODEL_NAME
-from backend.worker import process_next_image
+from backend.worker import process_single_image
 
 app = FastAPI()
 
@@ -62,12 +62,49 @@ def add_images(request: ImageRequest):
 class ProcessRequest(BaseModel):
     pass  # Prompt is now embedded in the system
 
+import concurrent.futures
+
 def worker_loop():
     global processing_active
-    while processing_active:
-        if not process_next_image():
-            processing_active = False
-            break
+    max_workers = min(os.cpu_count() or 4, 8)  # Balance CPU usage for encoding vs API limits
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = set()
+        
+        while processing_active:
+            # Keep the thread pool fed up to max_workers
+            while len(futures) < max_workers and processing_active:
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                # Use immediate mode to prevent SQLite lock contention
+                cursor.execute("BEGIN IMMEDIATE")
+                cursor.execute("SELECT id, path FROM images WHERE status='Pending' LIMIT 1")
+                row = cursor.fetchone()
+                
+                if not row:
+                    conn.commit()
+                    conn.close()
+                    break  # No more pending images
+                
+                img_id, path = row["id"], row["path"]
+                cursor.execute("UPDATE images SET status='Processing' WHERE id=?", (img_id,))
+                conn.commit()
+                conn.close()
+                
+                # Submit to thread pool
+                futures.add(executor.submit(process_single_image, img_id, path))
+            
+            if not futures:
+                # No pending images and no running threads, we are done
+                processing_active = False
+                break
+                
+            # Wait for at least one future to complete before checking DB again
+            done, futures = concurrent.futures.wait(
+                futures, 
+                return_when=concurrent.futures.FIRST_COMPLETED, 
+                timeout=1.0
+            )
 
 @app.post("/api/process")
 def start_processing(request: ProcessRequest, background_tasks: BackgroundTasks):
