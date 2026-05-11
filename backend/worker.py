@@ -14,10 +14,15 @@ def encode_image(image_path):
     original_size = img.size
 
     if max(img.size) > MAX_DIMENSION:
-        img.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.LANCZOS)
+        # Use BICUBIC instead of LANCZOS. It's much faster and visually indistinguishable 
+        # for AI ingestion purposes (the AI resizes it down to ~336px internally anyway).
+        img.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.BICUBIC)
 
     buffer = io.BytesIO()
-    img.convert("RGB").save(buffer, format="JPEG", quality=85)
+    # Optimize: convert to RGB only if necessary
+    if img.mode != "RGB":
+        img = img.convert("RGB")
+    img.save(buffer, format="JPEG", quality=85)
     encoded = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
     elapsed = time.time() - t0
@@ -27,25 +32,13 @@ def encode_image(image_path):
 
     return encoded
 
-def process_next_image():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT id, path FROM images WHERE status='Pending' LIMIT 1")
-    row = cursor.fetchone()
-
-    if not row:
-        conn.close()
-        return False
-
-    img_id, path = row["id"], row["path"]
-
+def process_single_image(img_id, path):
     print(f"\n[*] Processing: {path}")
-    cursor.execute("UPDATE images SET status='Processing' WHERE id=?", (img_id,))
-    conn.commit()
 
     try:
         t_total = time.time()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
         base64_img = encode_image(path)
 
@@ -78,13 +71,24 @@ def process_next_image():
         print(f"    [total]  {total_elapsed:.2f}s")
         print(f"[+] Done: {path}")
 
+        conn.commit()
     except Exception as e:
         print(f"[!] Failed: {path} - Error: {str(e)}")
-        cursor.execute(
-            "UPDATE images SET status='Failed', description=? WHERE id=?",
-            (f"Error: {str(e)}", img_id)
-        )
+        # Try a fresh connection for error logging if the main one failed
+        try:
+            err_conn = get_db_connection()
+            err_conn.execute(
+                "UPDATE images SET status='Failed', description=? WHERE id=?",
+                (f"Error: {str(e)}", img_id)
+            )
+            err_conn.commit()
+            err_conn.close()
+        except:
+            pass
+    finally:
+        try:
+            conn.close()
+        except:
+            pass
 
-    conn.commit()
-    conn.close()
     return True
