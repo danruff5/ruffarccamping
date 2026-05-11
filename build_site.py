@@ -1,6 +1,9 @@
 import os
 import sqlite3
 import shutil
+import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from difflib import SequenceMatcher
 from PIL import Image, ImageOps
 from jinja2 import Environment, FileSystemLoader
@@ -47,6 +50,9 @@ def get_cover_photo(album_path, approved_images):
         return approved_images[0]["path"]
     return None
 
+# Lock for thread-safe directory creation
+_dir_lock = threading.Lock()
+
 def process_image(src_path, dest_dir, album_slug, filename):
     """
     Optimizes images for the web. Creates a WebP thumbnail (800px) and an
@@ -54,11 +60,12 @@ def process_image(src_path, dest_dir, album_slug, filename):
     Skips processing if both output files already exist (incremental build).
     Returns relative paths (to docs root) for (thumbnail, full_res).
     """
-    # Create directories
+    # Create directories (thread-safe)
     thumb_dir = os.path.join(dest_dir, "thumbnails")
     full_dir = os.path.join(dest_dir, "full")
-    os.makedirs(thumb_dir, exist_ok=True)
-    os.makedirs(full_dir, exist_ok=True)
+    with _dir_lock:
+        os.makedirs(thumb_dir, exist_ok=True)
+        os.makedirs(full_dir, exist_ok=True)
     
     # Both outputs are WebP
     base_name = os.path.splitext(filename)[0] + ".webp"
@@ -91,13 +98,29 @@ def process_image(src_path, dest_dir, album_slug, filename):
     
     return rel_thumb, rel_full
 
-def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
+def _process_single_photo(photo, album_dir, slug):
+    """Worker function for threaded image processing. Returns the processed photo dict."""
+    filename = os.path.basename(photo["path"])
+    thumb, full = process_image(photo["path"], album_dir, slug, filename)
+    return {
+        "thumb": thumb,
+        "full_res": full,
+        "description": photo["description"],
+        "rating": photo["rating"],
+        "score": photo["score"],
+        "_path": photo["path"]  # preserve for ordering
+    }
+
+def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates", max_workers=None):
     """
     Main flow to generate the static site.
+    max_workers: number of threads for image processing (default: CPU count).
     """
     if not os.path.exists(db_path) and db_path != ":memory:":
         print(f"Error: Database not found at {db_path}")
         return
+
+    start_time = time.time()
 
     # 1. Setup Directories — preserve existing albums/assets for incremental builds
     os.makedirs(os.path.join(out_dir, "albums"), exist_ok=True)
@@ -114,21 +137,26 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
     # 3. Filter and Group
     albums_data = filter_and_group_images(rows)
     
+    total_photos = sum(len(photos) for photos in albums_data.values())
+    print(f"Found {len(albums_data)} album(s), {total_photos} photos to process")
+    
     # 4. Process Images and Render Album Pages
     env = Environment(loader=FileSystemLoader(templates_dir), autoescape=True)
     album_template = env.get_template("album.html")
     index_template = env.get_template("index.html")
     
     albums_summary = []
+    global_processed = 0
+    
+    if max_workers is None:
+        max_workers = min(os.cpu_count() or 4, 8)
     
     for name, photos in albums_data.items():
         slug = name.lower().replace(" ", "_")
         album_dir = os.path.join(out_dir, "assets", slug)
         album_html_path = os.path.join(out_dir, "albums", f"{slug}.html")
 
-        # Check if this album needs rebuilding:
-        # An album is stale if its HTML doesn't exist, or any source photo is
-        # newer than the existing HTML file.
+        # Check if this album needs rebuilding
         album_html_mtime = os.path.getmtime(album_html_path) if os.path.exists(album_html_path) else 0
         album_is_stale = not os.path.exists(album_html_path) or any(
             os.path.getmtime(p["path"]) > album_html_mtime
@@ -136,18 +164,32 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
             if os.path.exists(p["path"])
         )
 
-        # Always process images incrementally (skips already-done ones)
-        processed_photos = []
-        for photo in photos:
-            filename = os.path.basename(photo["path"])
-            thumb, full = process_image(photo["path"], album_dir, slug, filename)
-            processed_photos.append({
-                "thumb": thumb,
-                "full_res": full,
-                "description": photo["description"],
-                "rating": photo["rating"],
-                "score": photo["score"]
-            })
+        # Process images with thread pool
+        # Build a map to preserve original ordering after threaded processing
+        path_order = {photo["path"]: i for i, photo in enumerate(photos)}
+        processed_photos = [None] * len(photos)
+        album_start = time.time()
+
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(_process_single_photo, photo, album_dir, slug): photo
+                for photo in photos
+            }
+            for future in as_completed(futures):
+                result = future.result()
+                idx = path_order[result.pop("_path")]
+                processed_photos[idx] = result
+                
+                global_processed += 1
+                if global_processed % 100 == 0:
+                    elapsed = time.time() - start_time
+                    rate = global_processed / elapsed if elapsed > 0 else 0
+                    remaining = total_photos - global_processed
+                    eta = remaining / rate if rate > 0 else 0
+                    print(f"  [progress] {global_processed}/{total_photos} images "
+                          f"({elapsed:.0f}s elapsed, ~{eta:.0f}s remaining)")
+
+        album_elapsed = time.time() - album_start
             
         # Determine Cover Photo
         album_src_path = os.path.dirname(photos[0]["path"])
@@ -166,9 +208,9 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
             )
             with open(album_html_path, "w", encoding="utf-8") as f:
                 f.write(album_html)
-            print(f"  [rebuilt] {name}")
+            print(f"  [rebuilt] {name} ({len(photos)} photos in {album_elapsed:.1f}s)")
         else:
-            print(f"  [skipped] {name} (no changes)")
+            print(f"  [skipped] {name} ({len(photos)} photos, no changes, {album_elapsed:.1f}s)")
             
         albums_summary.append({
             "name": name,
@@ -185,7 +227,9 @@ def generate_site(db_path="data.db", out_dir="docs", templates_dir="templates"):
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(index_html)
         
-    print(f"Site generated successfully in {out_dir}/")
+    total_elapsed = time.time() - start_time
+    print(f"\nSite generated successfully in {out_dir}/ "
+          f"({global_processed} photos in {total_elapsed:.1f}s)")
 
 if __name__ == "__main__":
     generate_site()
