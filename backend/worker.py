@@ -42,6 +42,10 @@ def process_single_image(img_id, path):
 
         base64_img = encode_image(path)
 
+        # Calculate dhash using hash_utils
+        from backend.hash_utils import calculate_dhash
+        dhash_val = calculate_dhash(path)
+
         t_ai = time.time()
         result = generate_description_and_rating(base64_img)
         ai_elapsed = time.time() - t_ai
@@ -57,8 +61,8 @@ def process_single_image(img_id, path):
         full_critique = f"SUMMARY: {summary}\n\n{critique}" if critique else f"SUMMARY: {summary}"
 
         cursor.execute(
-            "UPDATE images SET status='Done', description=?, rating=?, score=?, timestamp=CURRENT_TIMESTAMP, raw_response=? WHERE id=?",
-            (photo_desc, full_critique, score, raw, img_id)
+            "UPDATE images SET status='Done', description=?, rating=?, score=?, timestamp=CURRENT_TIMESTAMP, raw_response=?, dhash=? WHERE id=?",
+            (photo_desc, full_critique, score, raw, dhash_val, img_id)
         )
 
         score_str = f"{score}/10" if score is not None else "N/A"
