@@ -2,7 +2,7 @@ import re
 import requests
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "llava:7b"
+MODEL_NAME = "qwen2.5vl"
 
 # The prompt instructs the model to output the four-pillar critique FIRST,
 # then append the three metadata tags at the very end. This ordering makes
@@ -90,7 +90,7 @@ def generate_description_and_rating(base64_image: str) -> dict:
         "messages": [{"role": "user", "content": SYSTEM_PROMPT, "images": [base64_image]}],
         "stream": False
     }
-    response = requests.post(chat_url, json=payload, timeout=120)
+    response = requests.post(chat_url, json=payload, timeout=600)
     response.raise_for_status()
     full_text = response.json().get("message", {}).get("content", "")
 

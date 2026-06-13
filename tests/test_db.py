@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from backend.db import init_db, get_db_connection
+from backend.db import init_db, migrate_db, get_db_connection
 
 def test_db_initialization():
     test_db_path = "test_data.db"
@@ -16,3 +16,17 @@ def test_db_initialization():
     assert cursor.fetchone() is not None
     conn.close()
     os.remove(test_db_path)
+
+def test_db_migration(tmp_path):
+    db_file = str(tmp_path / "test_data.db")
+    init_db(db_file)
+    migrate_db(db_file)
+    
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+    cursor.execute("PRAGMA table_info(images)")
+    cols = {row[1] for row in cursor.fetchall()}
+    conn.close()
+    
+    assert "dhash" in cols
+

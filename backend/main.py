@@ -25,6 +25,9 @@ else:
     conn.close()
 
 migrate_db()
+from backend.db import populate_missing_hashes
+populate_missing_hashes()
+
 
 class ImageRequest(BaseModel):
     paths: List[str]
