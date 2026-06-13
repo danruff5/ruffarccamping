@@ -2,7 +2,7 @@ import re
 import requests
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "llava:7b"
+MODEL_NAME = "gemma4:12b"
 
 # The prompt instructs the model to output the four-pillar critique FIRST,
 # then append the three metadata tags at the very end. This ordering makes
