@@ -90,7 +90,7 @@ def generate_description_and_rating(base64_image: str) -> dict:
         "messages": [{"role": "user", "content": SYSTEM_PROMPT, "images": [base64_image]}],
         "stream": False
     }
-    response = requests.post(chat_url, json=payload, timeout=120)
+    response = requests.post(chat_url, json=payload, timeout=600)
     response.raise_for_status()
     full_text = response.json().get("message", {}).get("content", "")
 
