@@ -10,29 +10,59 @@ from jinja2 import Environment, FileSystemLoader
 
 def filter_and_group_images(images, similarity_threshold=0.85):
     """
-    Groups images by album (parent folder) and filters out duplicates.
+    Groups images by album (parent folder) and filters out duplicates,
+    keeping only the one with the highest score in any cluster of similar images.
     """
+    from backend.hash_utils import hamming_distance
+    from difflib import SequenceMatcher
     albums = {}
+    
+    # 1. Group images by album first
+    album_groups = {}
     for img in images:
-        # Extract album name from path
         album_name = os.path.basename(os.path.dirname(img["path"]))
         if not album_name:
             album_name = "Unsorted"
+        if album_name not in album_groups:
+            album_groups[album_name] = []
+        album_groups[album_name].append(img)
+        
+    # 2. Run streaming leader-election per album
+    for album_name, photos in album_groups.items():
+        albums[album_name] = []
+        if not photos:
+            continue
             
-        if album_name not in albums:
-            albums[album_name] = []
+        leader = photos[0]
+        
+        for next_photo in photos[1:]:
+            # Determine similarity
+            is_similar = False
             
-        # Deduplication logic
-        is_duplicate = False
-        if albums[album_name]:
-            last_img = albums[album_name][-1]
-            similarity = SequenceMatcher(None, img["description"], last_img["description"]).ratio()
-            if similarity > similarity_threshold:
-                is_duplicate = True
+            h1, h2 = leader.get("dhash"), next_photo.get("dhash")
+            if h1 and h2:
+                # Use perceptual hash similarity
+                dist = hamming_distance(h1, h2)
+                is_similar = (dist <= 10)
+            else:
+                # Fall back to description string similarity
+                sim_ratio = SequenceMatcher(None, leader.get("description", ""), next_photo.get("description", "")).ratio()
+                is_similar = (sim_ratio > similarity_threshold)
                 
-        if not is_duplicate:
-            albums[album_name].append(img)
-            
+            if is_similar:
+                # Same visual group: keep the one with the higher score
+                leader_score = leader.get("score") or 0
+                next_score = next_photo.get("score") or 0
+                if next_score > leader_score:
+                    leader = next_photo
+            else:
+                # Different visual group: finalize current leader and elect new one
+                albums[album_name].append(leader)
+                leader = next_photo
+                
+        # Finalize the last remaining leader
+        albums[album_name].append(leader)
+        
     return albums
 
 def get_cover_photo(album_path, approved_images):

@@ -14,13 +14,13 @@ def test_filter_and_group_images():
         {"path": "trip2/img4.jpg", "score": 8, "description": "Hiking the trail", "timestamp": "2026-05-11T09:00:00Z"},
     ]
     # filter_and_group_images should return a dict: {"trip1": [img1, img3], "trip2": [img4]}
-    # Notice img2 is dropped due to similar description to img1
+    # Notice img1 is dropped because img2 has a higher score (9 vs 8)
     result = filter_and_group_images(mock_images, similarity_threshold=0.85)
     
     assert "trip1" in result
     assert "trip2" in result
     assert len(result["trip1"]) == 2
-    assert result["trip1"][0]["path"] == "trip1/img1.jpg"
+    assert result["trip1"][0]["path"] == "trip1/img2.jpg"
     assert result["trip1"][1]["path"] == "trip1/img3.jpg"
 
 def test_get_cover_photo(tmp_path):
@@ -88,3 +88,24 @@ def test_generate_html(tmp_path):
     
     assert os.path.exists(tmp_path / "docs" / "index.html")
     assert os.path.exists(tmp_path / "docs" / "albums" / "trip1.html")
+
+def test_similarity_leader_election():
+    from build_site import filter_and_group_images
+    mock_images = [
+        # Album 1: similar photos
+        {"path": "album1/img1.jpg", "description": "A cat on a mat", "dhash": "0000000000000000", "score": 7},
+        {"path": "album1/img2.jpg", "description": "A cat on a mat", "dhash": "0000000000000001", "score": 9},  # best
+        {"path": "album1/img3.jpg", "description": "A cat on a mat", "dhash": "0000000000000003", "score": 8},
+        
+        # Different photo
+        {"path": "album1/img4.jpg", "description": "A dog on a rug", "dhash": "ffffffffffffffff", "score": 7},
+    ]
+    
+    albums = filter_and_group_images(mock_images)
+    photos = albums["album1"]
+    
+    assert len(photos) == 2
+    # The best one out of the similar group is chosen
+    assert photos[0]["path"] == "album1/img2.jpg"
+    assert photos[1]["path"] == "album1/img4.jpg"
+
