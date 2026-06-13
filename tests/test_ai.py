@@ -14,7 +14,7 @@ def test_generate_description_mock(monkeypatch):
     
     def mock_post(url, json, timeout):
         # Assert that the new model name is requested
-        assert json["model"] == "gemma4:12b"
+        assert json["model"] == "qwen2.5vl"
         return MockResponse()
         
     monkeypatch.setattr("requests.post", mock_post)
